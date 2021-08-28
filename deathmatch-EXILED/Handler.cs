@@ -1199,9 +1199,9 @@ namespace MiniGamesSystem
             {
                 if (props.Contains(ply.UserId))
                 {
-                    if (ev.Position == ply.Position)
+                    if (ev.ShotPosition == ply.Position)
                     {
-                        ply.Kill(DamageTypes.Usp);
+                        ply.Kill(DamageTypes.Com18);
                     }
                 }
             }
@@ -1216,11 +1216,9 @@ namespace MiniGamesSystem
             }
             if (props.Contains(ev.Player.UserId))
             {
-
-                Pickup Item = Exiled.API.Extensions.Item.Spawn(ev.Pickup.ItemId, 0, ev.Pickup.transform.position);
-                GameObject gameObject = Item.gameObject;
-                NetworkServer.UnSpawn(gameObject);
-                NetworkServer.Spawn(Item.gameObject);
+                Item item = new Item(ev.Pickup.Type);
+                
+                item.Spawn(ev.Pickup.Position, default);
 
                 ev.Player.IsInvisible = true;
                 ev.IsAllowed = false;
@@ -1255,43 +1253,42 @@ namespace MiniGamesSystem
 
         public IEnumerator<float> Czapki(Player ply, ItemType type)
         {
-            Pickup Item = Exiled.API.Extensions.Item.Spawn(type, 0, ply.Position);
-            GameObject gameObject = Item.gameObject;
-            NetworkServer.UnSpawn(gameObject);
-            NetworkServer.Spawn(Item.gameObject);
+            Item item = new Item(type);
+            
+            Pickup Item = item.Spawn(ply.Position, default);
             while (true)
             {
                 switch (ply.Role)
                 {
                     case RoleType.Scp173:
-                        gameObject.transform.position = new Vector3(0, .7f, -.05f) + ply.Position;
+                        Item.Position = new Vector3(0, .7f, -.05f) + ply.Position;
                         break;
                     case RoleType.Scp106:
-                        gameObject.transform.position = new Vector3(0, .45f, .13f) + ply.Position;
+                        Item.Position = new Vector3(0, .45f, .13f) + ply.Position;
                         break;
                     case RoleType.Scp096:
-                        gameObject.transform.position = new Vector3(.15f, .45f, .225f) + ply.Position;
+                        Item.Position = new Vector3(.15f, .45f, .225f) + ply.Position;
                         break;
                     case RoleType.Scp93953:
-                        gameObject.transform.position = new Vector3(0, -.4f, 1.3f) + ply.Position;
+                        Item.Position = new Vector3(0, -.4f, 1.3f) + ply.Position;
                         break;
                     case RoleType.Scp93989:
-                        gameObject.transform.position = new Vector3(0, -.3f, 1.3f) + ply.Position;
+                        Item.Position = new Vector3(0, -.3f, 1.3f) + ply.Position;
                         break;
                     case RoleType.Scp049:
-                        gameObject.transform.position = new Vector3(0, .125f, -.05f) + ply.Position;
+                        Item.Position = new Vector3(0, .125f, -.05f) + ply.Position;
                         break;
                     case RoleType.None:
-                        gameObject.transform.position = new Vector3(-1000, -1000, -1000) + ply.Position;
+                        Item.Position = new Vector3(-1000, -1000, -1000) + ply.Position;
                         break;
                     case RoleType.Spectator:
-                        gameObject.transform.position = new Vector3(-1000, -1000, -1000) + ply.Position;
+                        Item.Position = new Vector3(-1000, -1000, -1000) + ply.Position;
                         break;
                     case RoleType.Scp0492:
-                        gameObject.transform.position = new Vector3(0, 0f, -.06f) + ply.Position;
+                        Item.Position = new Vector3(0, 0f, -.06f) + ply.Position;
                         break;
                     default:
-                        gameObject.transform.position = new Vector3(0, .15f, -.07f) + ply.Position;
+                        Item.Position = new Vector3(0, .15f, -.07f) + ply.Position;
                         break;
                 }
                 yield return Timing.WaitForSeconds(0.5f);
@@ -1309,8 +1306,8 @@ namespace MiniGamesSystem
             {
                 Timing.CallDelayed(0.5f, () =>
                 {
-                    ev.Player.Role = RoleType.NtfCommander;
-                    ev.Player.RemoveItem();
+                    ev.Player.Role = RoleType.NtfCaptain;
+                    ev.Player.ClearInventory(true);
                     ev.Player.IsGodModeEnabled = true;
                     ev.Player.RankName = "W lobby";
                     ev.Player.RankColor = "pumpkin";
