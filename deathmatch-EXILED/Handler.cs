@@ -1225,12 +1225,12 @@ namespace MiniGamesSystem
                 ev.Player.IsInvisible = true;
                 ev.IsAllowed = false;
 
-                if (ev.Pickup.ItemId == ItemType.SCP018 || ev.Pickup.ItemId == ItemType.WeaponManagerTablet || ev.Pickup.ItemId == ItemType.Medkit)
+                if (ev.Pickup.Type == ItemType.SCP018 || ev.Pickup.Type == ItemType.Medkit)
                 {
                     ev.Player.Scale = new Vector3(0.01f, 0.01f, 0.01f);
 
                 }
-                else if (ev.Pickup.ItemId == ItemType.GunE11SR)
+                else if (ev.Pickup.Type == ItemType.GunE11SR)
                 {
                     ev.Player.Scale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
