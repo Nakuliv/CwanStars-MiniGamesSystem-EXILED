@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exiled.API.Features;
+using UnityEngine;
 
 namespace MiniGamesSystem
 {
@@ -21,6 +22,13 @@ namespace MiniGamesSystem
         public static void RefreshTag(this Player player)
         {
             player.ReferenceHub.serverRoles.HiddenBadge = null; player.ReferenceHub.serverRoles.RpcResetFixed(); player.ReferenceHub.serverRoles.RefreshPermissions(true);
+        }
+
+        public static Vector3 GetRandomSpawnPoint(RoleType roleType)
+        {
+            GameObject randomPosition = UnityEngine.Object.FindObjectOfType<SpawnpointManager>().GetRandomPosition(roleType);
+
+            return randomPosition == null ? Vector3.zero : randomPosition.transform.position;
         }
     }
 }

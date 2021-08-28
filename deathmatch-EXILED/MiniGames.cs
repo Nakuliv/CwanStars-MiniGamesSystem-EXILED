@@ -39,7 +39,7 @@ namespace MiniGamesSystem
             foreach (Player player in Player.List)
             {
                 player.Role = RoleType.ClassD;
-                Vector3 spawnPos = RoleExtensions.GetRandomSpawnProperties(RoleType.Scientist);
+                Vector3 spawnPos = Extensions.GetRandomSpawnPoint(RoleType.Scientist);
 
                 Timing.CallDelayed(0.5f, () => player.Position = spawnPos);
             }
@@ -203,14 +203,14 @@ namespace MiniGamesSystem
                         player.Role = RoleType.Scp93953;
                         Timing.CallDelayed(0.5f, () =>
                         {
-                            player.Position = Exiled.API.Extensions.RoleExtensions.GetRandomSpawnProperties(RoleType.Scp106);
+                            player.Position = Extensions.GetRandomSpawnPoint(RoleType.Scp106);
                         });
 
                         player.Broadcast(5, "<b>Jesteś <color=red>szukającym</color>, za 30 sekund będziesz mógł szukać!</b>");
                         counter++;
                         Timing.CallDelayed(30, () =>
                         {
-                            player.Position = Exiled.API.Extensions.RoleExtensions.GetRandomSpawnProperties(RoleType.Scp173);
+                            player.Position = Extensions.GetRandomSpawnPoint(RoleType.Scp173);
                             Map.Broadcast(5, "<b><color=red>Szukający</color> zostali wypuszczeni!</b>");
                         });
                     }
@@ -227,13 +227,13 @@ namespace MiniGamesSystem
                         player.Role = RoleType.Scp93953;
                         Timing.CallDelayed(0.5f, () =>
                         {
-                            player.Position = Exiled.API.Extensions.RoleExtensions.GetRandomSpawnProperties(RoleType.Scp106);
+                            player.Position = Extensions.GetRandomSpawnPoint(RoleType.Scp106);
                         });
                         player.Broadcast(5, "<b>Jesteś <color=red>szukającym</color>, za 30 sekund będziesz mógł szukać!</b>");
                         counter++;
                         Timing.CallDelayed(30, () =>
                         {
-                            player.Position = Exiled.API.Extensions.RoleExtensions.GetRandomSpawnProperties(RoleType.Scp173);
+                            player.Position = Extensions.GetRandomSpawnPoint(RoleType.Scp173);
                         });
                     }
                 }
