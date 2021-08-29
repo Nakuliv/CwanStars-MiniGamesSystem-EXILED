@@ -45,11 +45,11 @@ namespace MiniGamesSystem
         [YamlIgnore]
         public GameObject orginalPrefab;
 
-        int Deathmatch = 0;
-        int GangWar = 0;
-        int hideAndSeek = 0;
-        int peanutRun = 0;
-        int dgball = 0;
+        public static int Deathmatch = 0;
+        public static int GangWar = 0;
+        public static int hideAndSeek = 0;
+        public static int peanutRun = 0;
+        public static int dgball = 0;
 
         public static string AktualnyEvent = "";
 
@@ -152,7 +152,7 @@ namespace MiniGamesSystem
         }
 
         //voting system
-        public void OnConsoleCMD(SendingConsoleCommandEventArgs ev)
+        /*public void OnConsoleCMD(SendingConsoleCommandEventArgs ev)
         {
             string cmd = ev.Name.ToLower();
             if (cmd == "portfel")
@@ -551,7 +551,7 @@ namespace MiniGamesSystem
                     Player Plys = Player.Get(ev.Arguments[0]);
                     props.Remove(Plys.UserId);
                     ev.ReturnMessage = $"<color=green>Gracz {Plys.Nickname} został usunięty z propów!</color>";
-                    break;*/
+                    break;
 
                 case "vote":
                     ev.IsAllowed = false;
@@ -822,7 +822,7 @@ namespace MiniGamesSystem
                     }
                     break;
             }
-            /*switch (ev.Name.ToLower())
+            switch (ev.Name.ToLower())
             {
                 case "randomtp":
                     ev.IsAllowed = false;
@@ -853,8 +853,8 @@ namespace MiniGamesSystem
                         return;
                     }
                     break;
-            }*/
-        }
+            }
+        }*/
         public void OnWTP()
         {
             Deathmatch = 0;

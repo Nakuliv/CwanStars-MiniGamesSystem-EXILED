@@ -23,7 +23,7 @@ namespace MiniGamesSystem.Commands
 
         public override string[] Aliases { get; } = new string[] { };
 
-        public override string Description { get; } = "Portfel MiniGames.";
+        public override string Description { get; } = "Sklep MiniGames.";
 
         public override void LoadGeneratedCommands() { }
 

@@ -111,8 +111,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CoinCommands.cs" />
+    <Compile Include="Commands\Ekwipunek.cs" />
     <Compile Include="Commands\Portfel.cs" />
     <Compile Include="Commands\Sklep.cs" />
+    <Compile Include="Commands\Top.cs" />
+    <Compile Include="Commands\Vote.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Handler.cs" />
