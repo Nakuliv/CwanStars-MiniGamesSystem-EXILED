@@ -1,108 +1,28 @@
-﻿using Exiled.API.Features;
-using Mirror;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Hats.cs" company="SCPStats.com">
+// Copyright (c) SCPStats.com. All rights reserved.
+// Licensed under the Apache v2 license.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Exiled.API.Features;
+using MiniGamesSystem.Commands;
 using UnityEngine;
 
-namespace MiniGamesSystem
+namespace MiniGamesSystem.Hats
 {
     internal static class Hats
     {
-        
-        public static void SpawnHat(this Player p, ItemType item, bool force = true)
+        internal static void SpawnCurrentHat(this Player p)
         {
-            HatPlayerComponent playerComponent;
-            
-            if (!p.GameObject.TryGetComponent(out playerComponent))
-            {
-                playerComponent = p.GameObject.AddComponent<HatPlayerComponent>();
-            }
+            if (!Handler.HatPlayers.ContainsKey(p.UserId)) return;
 
-            if (force && playerComponent.item != null)
-            {
-                Object.Destroy(playerComponent.item.gameObject);
-                playerComponent.item = null;
-            }
-
-            if (item == ItemType.None) return;
-
-            var pos = GetHatPosForRole(p.Role);
-            var itemOffset = Vector3.zero;
-            var rot = Quaternion.Euler(0, 0, 0);
-            
-            var gameObject = UnityEngine.Object.Instantiate<GameObject>(Server.Host.Inventory.pickupPrefab);
-            
-            switch (item)
-            {
-                case ItemType.KeycardScientist:
-                    gameObject.transform.localScale += new Vector3(1.5f, 20f, 1.5f);
-                    rot = Quaternion.Euler(0, 90, 0);
-                    itemOffset = new Vector3(0, .1f, 0);
-                    break;
-                
-                case ItemType.KeycardNTFCommander:
-                    gameObject.transform.localScale += new Vector3(1.5f, 200f, 1.5f);
-                    rot = Quaternion.Euler(0, 90, 0);
-                    itemOffset = new Vector3(0, .9f, 0);
-                    break;
-                
-                case ItemType.SCP268:
-                    gameObject.transform.localScale += new Vector3(-.1f, -.1f, -.1f);
-                    rot = Quaternion.Euler(-90, 0, 90);
-                    break;
-                
-                case ItemType.Ammo556x45:
-                    gameObject.transform.localScale += new Vector3(-.03f, -.03f, -.03f);
-                    var position2 = gameObject.transform.position;
-                    gameObject.transform.position = new Vector3(position2.x, position2.y, position2.z);
-                    rot = Quaternion.Euler(-90, 0, 90);
-                    item = ItemType.SCP268;
-                    break;
-                
-                case ItemType.Ammo762x39:
-                    gameObject.transform.localScale += new Vector3(-.1f, 10f, -.1f);
-                    rot = Quaternion.Euler(-90, 0, 90);
-                    item = ItemType.SCP268;
-                    break;
-                
-                case ItemType.Ammo9x19:
-                    gameObject.transform.localScale += new Vector3(-.1f, -.1f, 5f);
-                    rot = Quaternion.Euler(-90, 0, -90);
-                    itemOffset = new Vector3(0, -.15f, .1f);
-                    item = ItemType.SCP268;
-                    break;
-                
-                case ItemType.Adrenaline:
-                case ItemType.Medkit:
-                case ItemType.Coin:
-                case ItemType.SCP018:
-                    itemOffset = new Vector3(0, .1f, 0);
-                    break;
-                
-                case ItemType.SCP500:
-                    itemOffset = new Vector3(0, .075f, 0);
-                    break;
-                
-                case ItemType.SCP207:
-                    itemOffset = new Vector3(0, .225f, 0);
-                    break;
-            }
-
-            NetworkServer.Spawn(gameObject);
-            gameObject.GetComponent<Pickup>().SetupPickup(item, 0, Server.Host.Inventory.gameObject, new Pickup.WeaponModifiers(true, 0, 0, 0), p.CameraTransform.position+pos, p.CameraTransform.rotation * rot);
-            
-            var pickup = gameObject.GetComponent<Pickup>();
-
-            var rigidbody = pickup.gameObject.GetComponent<Rigidbody>();
-            rigidbody.useGravity = false;
-            rigidbody.isKinematic = true;
-
-            var collider = pickup.gameObject.GetComponent<Collider>();
-            collider.enabled = false;
-
-            playerComponent.item = pickup.gameObject.AddComponent<HatItemComponent>();
-            playerComponent.item.player = playerComponent;
-            playerComponent.item.pos = pos;
-            playerComponent.item.itemOffset = itemOffset;
-            playerComponent.item.rot = rot;
+            p.SpawnHat(Handler.HatPlayers[p.UserId].Item1);
+        }
+        
+        internal static void SpawnHat(this Player p, HatInfo hat)
+        {
+            Extensions.SpawnHat(p, hat);
         }
 
         internal static Vector3 GetHatPosForRole(RoleType role)
@@ -110,11 +30,11 @@ namespace MiniGamesSystem
             switch (role)
             {
                 case RoleType.Scp173:
-                    return new Vector3(0, .7f, -.05f);
+                    return new Vector3(0, .55f, -.05f);
                 case RoleType.Scp106:
-                    return new Vector3(0, .45f, .13f);
+                    return new Vector3(0, .45f, .18f);
                 case RoleType.Scp096:
-                    return new Vector3(.15f, .45f, .225f);
+                    return new Vector3(.15f, .425f, .325f);
                 case RoleType.Scp93953:
                     return new Vector3(0, -.5f, 1.125f);
                 case RoleType.Scp93989:
@@ -126,7 +46,7 @@ namespace MiniGamesSystem
                 case RoleType.Spectator:
                     return new Vector3(-1000, -1000, -1000);
                 case RoleType.Scp0492:
-                    return new Vector3(0, 0f, -.06f);
+                    return new Vector3(0, .1f, -.16f);
                 default:
                     return new Vector3(0, .15f, -.07f);
             }

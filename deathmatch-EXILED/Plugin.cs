@@ -32,8 +32,8 @@ namespace MiniGamesSystem
             ServerEv.WaitingForPlayers += handler.OnWTP;
             PlayerEv.Verified += handler.OnJoin;
             ServerEv.RoundStarted += handler.OnRS;
-            ServerEv.SendingConsoleCommand += handler.OnConsoleCMD;
-            ServerEv.SendingRemoteAdminCommand += handler.OnRAcmd;
+            //ServerEv.SendingConsoleCommand += handler.OnConsoleCMD;
+            //ServerEv.SendingRemoteAdminCommand += handler.OnRAcmd;
             PlayerEv.PickingUpItem += handler.OnPickingUp;
             ServerEv.RestartingRound += handler.OnRoundRestart;
             PlayerEv.Shooting += handler.OnShooting;
@@ -49,8 +49,8 @@ namespace MiniGamesSystem
             ServerEv.WaitingForPlayers -= handler.OnWTP;
             PlayerEv.Verified -= handler.OnJoin;
             ServerEv.RoundStarted -= handler.OnRS;
-            ServerEv.SendingConsoleCommand -= handler.OnConsoleCMD;
-            ServerEv.SendingRemoteAdminCommand -= handler.OnRAcmd;
+            //ServerEv.SendingConsoleCommand -= handler.OnConsoleCMD;
+            //ServerEv.SendingRemoteAdminCommand -= handler.OnRAcmd;
             PlayerEv.PickingUpItem -= handler.OnPickingUp;
             ServerEv.RestartingRound -= handler.OnRoundRestart;
             PlayerEv.Shooting -= handler.OnShooting;
@@ -73,7 +73,7 @@ namespace MiniGamesSystem
         {
             GameObject bench = null;
             bench = UnityEngine.Object.Instantiate(workstationObj);
-            bench.GetComponent<WorkStation>().Network_playerConnected = null;
+            //bench.GetComponent<WorkStation>().Network_playerConnected = null;
             return bench;
         }
     }
