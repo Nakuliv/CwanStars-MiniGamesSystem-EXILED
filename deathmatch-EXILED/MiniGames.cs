@@ -82,8 +82,8 @@ namespace MiniGamesSystem
                     }
             });
 
-            foreach (Pickup item in UnityEngine.Object.FindObjectsOfType<Pickup>())
-                item.Delete();
+            foreach (Pickup item in Map.Pickups)
+                item.Destroy();
 
             Timing.RunCoroutine(DeathMatchCheck(), "dmcheck");
         }
@@ -111,8 +111,8 @@ namespace MiniGamesSystem
         //Wojna Gangów
         public static void WojnaGangow()
         {
-            foreach (Pickup item in UnityEngine.Object.FindObjectsOfType<Pickup>())
-                item.Delete();
+            foreach (Pickup item in Map.Pickups)
+                item.Destroy();
 
             List<Player> players = Player.List.ToList();
             for (int i = 0; i < players.Count / 2; i++)

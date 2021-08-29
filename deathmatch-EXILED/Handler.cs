@@ -1210,7 +1210,7 @@ namespace MiniGamesSystem
 
         public void OnPickingUp(PickingUpItemEventArgs ev)
         {
-            if (ev.Pickup.gameObject.TryGetComponent<HatItemComponent>(out var hat))
+            if (ev.Pickup.Base.gameObject.TryGetComponent<HatItemComponent>(out var hat))
             {
                 ev.Player.ShowHint("<color=red>Nie możesz podnieść czapki!</color>");
                 ev.IsAllowed = false;

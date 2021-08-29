@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Exiled.API.Features;
 using Exiled.Loader;
+using UnityEngine;
 
 namespace MiniGamesSystem
 {
@@ -13,7 +14,7 @@ namespace MiniGamesSystem
     {
         private static MethodInfo IsGhost = null;
         private static MethodInfo IsNpc = null;
-
+        internal static bool IsZero(this Quaternion rot) => rot.x == 0 && rot.y == 0 && rot.z == 0;
         internal static bool IsPlayerGhost(Player p)
         {
             if (IsGhost == null) return false;
