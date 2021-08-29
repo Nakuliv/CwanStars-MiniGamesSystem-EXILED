@@ -53,7 +53,7 @@ namespace MiniGamesSystem
 
         public static string AktualnyEvent = "";
 
-        public void OnRAcmd(SendingRemoteAdminCommandEventArgs ev)
+        /*public void OnRAcmd(SendingRemoteAdminCommandEventArgs ev)
         {
             if (ev.Name.ToLower() == "coin")
             {
@@ -85,7 +85,7 @@ namespace MiniGamesSystem
                         }
                     }
                 }
-                /*
+                
                 if (ev.Name.ToLower() == "spawntests")
                 {
                     ev.IsAllowed = false;
@@ -135,9 +135,9 @@ namespace MiniGamesSystem
                             }
                         };
                     }
-                }*/
+                }
             }
-        }
+        }*/
         internal static bool RemoveHat(HatPlayerComponent playerComponent)
         {
             if (playerComponent.item == null) return false;

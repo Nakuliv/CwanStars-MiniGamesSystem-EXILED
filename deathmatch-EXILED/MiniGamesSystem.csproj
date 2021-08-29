@@ -110,6 +110,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CoinCommands.cs" />
+    <Compile Include="Commands\Portfel.cs" />
+    <Compile Include="Commands\Sklep.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Handler.cs" />
@@ -125,8 +128,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
