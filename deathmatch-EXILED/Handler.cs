@@ -42,7 +42,6 @@ namespace MiniGamesSystem
         private List<DoorType> SurfaceGate = new List<DoorType>() { DoorType.SurfaceGate };
         private List<DoorType> GangWarDoors = new List<DoorType>() { DoorType.CheckpointEntrance, DoorType.GateA, DoorType.GateB };
         public static HashSet<string> props = new HashSet<string>();
-        HashSet<string> vote = new HashSet<string>();
         [YamlIgnore]
         public GameObject orginalPrefab;
 
@@ -235,7 +234,7 @@ namespace MiniGamesSystem
                                     ev.ReturnMessage = "<color=red>Masz już tę rangę!</color>";
                                 }
                                 else
-                                {
+                                {d
                                     pInfoDict[ev.Player.UserId].Coins = (pInfoDict[ev.Player.UserId].Coins - 10000);
                                     pInfoDict[ev.Player.UserId].ListaCzapek.Add("Vip");
                                     ev.ReturnMessage = "<color=green>Kupiłeś rangę VIP na miesiąc!</color>";
@@ -858,13 +857,6 @@ namespace MiniGamesSystem
         }*/
         public void OnWTP()
         {
-            Deathmatch = 0;
-            GangWar = 0;
-            hideAndSeek = 0;
-            peanutRun = 0;
-            dgball = 0;
-            vote.Clear();
-            AktualnyEvent = "";
             SpawnManager();
             GameObject.Find("StartRound").transform.localScale = new Vector3(0, 0, 0);
             pInfoDict.Clear();
@@ -884,7 +876,7 @@ namespace MiniGamesSystem
 
             var Unit = new SyncUnit();
             Unit.UnitName =
-                "<color=#EFC01A>Witaj na</color> <color=#8137CE>LunarEmpire</color>";
+                "<color=#EFC01A>Witaj na</color> <color=green>Cwan</color><color=yellow>Stars</color>";
             Unit.SpawnableTeam = (byte)SpawnableTeamType.NineTailedFox;
 
             var Unit1 = new SyncUnit();
@@ -1027,7 +1019,7 @@ namespace MiniGamesSystem
             }
             else if (dgball > (GangWar + Deathmatch + peanutRun + hideAndSeek))
             {
-                AktualnyEvent = "DgBall";
+                AktualnyEvent = "DodgeBall";
                 MiniGames.DgBall();
             }
             else
@@ -1051,7 +1043,7 @@ namespace MiniGamesSystem
                         MiniGames.PeanutRunn();
                         break;
                     case 5:
-                        AktualnyEvent = "DgBall";
+                        AktualnyEvent = "DodgeBall";
                         MiniGames.DgBall();
                         break;
                 }
@@ -1149,7 +1141,7 @@ namespace MiniGamesSystem
                     Map.Broadcast(5, "<b><color=#EE7600>Klasa-D</color> wygrała!</b>");
                 }
             }
-            else if (AktualnyEvent == "DgBall")
+            else if (AktualnyEvent == "DodgeBall")
             {
                 foreach (Player ply in Player.Get(RoleType.ClassD))
                 {
@@ -1165,13 +1157,19 @@ namespace MiniGamesSystem
         }
         public void OnRoundRestart()
         {
-            Exiled.Loader.Loader.ReloadPlugins();
+            Deathmatch = 0;
+            GangWar = 0;
+            hideAndSeek = 0;
+            peanutRun = 0;
+            dgball = 0;
+            Commands.Vote.vote.Clear();
+            AktualnyEvent = "";
 
             if (AktualnyEvent == "PeanutRun")
             {
                 PeanutRun.Plugin.Singleton.Methods.DisableGamemode(true);
             }
-            else if (AktualnyEvent == "DgBall")
+            else if (AktualnyEvent == "DodgeBall")
             {
                 DodgeBall.Plugin.Singleton.Methods.DisableGamemode(true);
             }
