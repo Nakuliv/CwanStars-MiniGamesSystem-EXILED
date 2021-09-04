@@ -17,7 +17,7 @@ namespace MiniGamesSystem
 
         public override string Name { get; } = "MiniGamesSystem";
         public override string Author { get; } = "Naku (Cwaniaak.)";
-        public override System.Version Version => new System.Version(2, 0, 0);
+        public override Version Version => new Version(2, 0, 0);
 
         public override PluginPriority Priority => PluginPriority.Highest;
         private MiniGamesSystem() { }
@@ -33,8 +33,6 @@ namespace MiniGamesSystem
             ServerEv.WaitingForPlayers += handler.OnWTP;
             PlayerEv.Verified += handler.OnJoin;
             ServerEv.RoundStarted += handler.OnRS;
-            //ServerEv.SendingConsoleCommand += handler.OnConsoleCMD;
-            //ServerEv.SendingRemoteAdminCommand += handler.OnRAcmd;
             PlayerEv.PickingUpItem += handler.OnPickingUp;
             ServerEv.RestartingRound += handler.OnRoundRestart;
             PlayerEv.Shooting += handler.OnShooting;
@@ -50,8 +48,6 @@ namespace MiniGamesSystem
             ServerEv.WaitingForPlayers -= handler.OnWTP;
             PlayerEv.Verified -= handler.OnJoin;
             ServerEv.RoundStarted -= handler.OnRS;
-            //ServerEv.SendingConsoleCommand -= handler.OnConsoleCMD;
-            //ServerEv.SendingRemoteAdminCommand -= handler.OnRAcmd;
             PlayerEv.PickingUpItem -= handler.OnPickingUp;
             ServerEv.RestartingRound -= handler.OnRoundRestart;
             PlayerEv.Shooting -= handler.OnShooting;
@@ -74,7 +70,6 @@ namespace MiniGamesSystem
         {
             GameObject bench = null;
             bench = UnityEngine.Object.Instantiate(workstationObj);
-            //bench.GetComponent<WorkStation>().Network_playerConnected = null;
             return bench;
         }
     }

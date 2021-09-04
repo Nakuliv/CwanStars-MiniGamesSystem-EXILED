@@ -2,12 +2,9 @@
 using System.Linq;
 using EMap = Exiled.API.Features.Map;
 using Exiled.API.Enums;
-using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Interactables.Interobjects.DoorUtils;
 using MEC;
 using UnityEngine;
-using System;
 using Exiled.API.Features.Items;
 
 namespace MiniGamesSystem
@@ -20,7 +17,6 @@ namespace MiniGamesSystem
         public static List<DoorType> EscapePrimary = new List<DoorType>() { DoorType.EscapePrimary };
         public static List<DoorType> SurfaceGate = new List<DoorType>() { DoorType.SurfaceGate };
         public static List<DoorType> GangWarDoors = new List<DoorType>() { DoorType.CheckpointEntrance, DoorType.GateA, DoorType.GateB };
-        static System.Random rnd = new System.Random();
         public static List<string> team1 = new List<string>();
         public CoroutineHandle Coroutine { get; set; }
 

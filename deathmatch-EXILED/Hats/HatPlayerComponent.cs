@@ -10,9 +10,7 @@ using System.Collections.Generic;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
-using InventorySystem.Items.Pickups;
 using MEC;
-using Mirror;
 using UnityEngine;
 using Scp096 = PlayableScps.Scp096;
 

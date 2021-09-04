@@ -1,26 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Exiled.API.Enums;
-using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
-using Interactables.Interobjects.DoorUtils;
 using MEC;
 using EMap = Exiled.API.Features.Map;
 using UnityEngine;
-using Mirror;
-using RemoteAdmin;
 using YamlDotNet.Serialization;
 using System.IO;
 using Newtonsoft.Json;
 using Respawning;
 using Respawning.NamingRules;
-using Exiled.Permissions.Extensions;
-using System.Net;
 using Exiled.API.Features.Items;
 using MiniGamesSystem.Hats;
 
@@ -37,10 +29,8 @@ namespace MiniGamesSystem
         internal static Dictionary<string, Tuple<HatInfo, HatInfo>> HatPlayers = new Dictionary<string, Tuple<HatInfo, HatInfo>>();
         public List<CoroutineHandle> coroutines = new List<CoroutineHandle>();
         public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-        private List<DoorType> lockedCheckpointLcz = new List<DoorType>() { DoorType.CheckpointLczA, DoorType.CheckpointLczB };
         private List<DoorType> EscapePrimary = new List<DoorType>() { DoorType.EscapePrimary };
         private List<DoorType> SurfaceGate = new List<DoorType>() { DoorType.SurfaceGate };
-        private List<DoorType> GangWarDoors = new List<DoorType>() { DoorType.CheckpointEntrance, DoorType.GateA, DoorType.GateB };
         public static HashSet<string> props = new HashSet<string>();
         [YamlIgnore]
         public GameObject orginalPrefab;

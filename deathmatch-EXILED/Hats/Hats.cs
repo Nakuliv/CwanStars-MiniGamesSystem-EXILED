@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Exiled.API.Features;
-using MiniGamesSystem.Commands;
 using UnityEngine;
 
 namespace MiniGamesSystem.Hats
