@@ -943,7 +943,7 @@ namespace MiniGamesSystem
                 if (SurfaceGate.Contains(door.Type))
                 {
                     door.DoorLockType = DoorLockType.SpecialDoorFeature;
-                    door.Open = false;
+                    door.IsOpen = false;
                 }
 
             }
