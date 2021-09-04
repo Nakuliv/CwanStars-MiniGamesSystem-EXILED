@@ -24,8 +24,6 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-
         public static HashSet<string> vote = new HashSet<string>();
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)

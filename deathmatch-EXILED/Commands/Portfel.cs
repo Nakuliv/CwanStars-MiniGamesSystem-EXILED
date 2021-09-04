@@ -24,21 +24,19 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
                     var ply = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
 
                     Player player = arguments.Count == 0 ? ply : Player.Get(arguments.At(0));
                     string nick;
-                    bool hasData = pInfoDict.ContainsKey(player.UserId);
+                    bool hasData = Handler.pInfoDict.ContainsKey(player.UserId);
                     if (player != null) nick = player.Nickname;
-                    else nick = hasData ? pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]";
+                    else nick = hasData ? Handler.pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]";
                     response =
                         "\n=================== Portfel ===================\n" +
                         $"Gracz: {nick} ({player.UserId})\n" +
-                        $"Coiny: {(hasData ? pInfoDict[player.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n";
+                        $"Coiny: {(hasData ? Handler.pInfoDict[player.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n";
                     return true;
         }
     }

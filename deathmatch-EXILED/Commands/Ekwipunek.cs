@@ -25,11 +25,9 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-
         public string listaczapek(Player ply)
         {
-            return string.Join("\n", pInfoDict[ply.UserId].ListaCzapek);
+            return string.Join("\n", Handler.pInfoDict[ply.UserId].ListaCzapek);
         }
 
         internal static bool RemoveHat(HatPlayerComponent playerComponent)
@@ -46,7 +44,7 @@ namespace MiniGamesSystem.Commands
             var ply = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
             if (arguments.Count == 0)
             {
-                bool hasData = pInfoDict.ContainsKey(ply.UserId);
+                bool hasData = Handler.pInfoDict.ContainsKey(ply.UserId);
                 response =
                 "\n=================== Ekwipunek ===================\n" +
                 "<color=#EFC01A>Twoje Czapki:</color>\n" +
@@ -60,7 +58,7 @@ namespace MiniGamesSystem.Commands
             {
                 if (arguments.At(1) == "Coin")
                 {
-                    if (pInfoDict[ply.UserId].ListaCzapek.Contains("Coin"))
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Coin"))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
@@ -77,7 +75,7 @@ namespace MiniGamesSystem.Commands
                 }
                 else if (arguments.At(1) == "Piłka")
                 {
-                    if (pInfoDict[ply.UserId].ListaCzapek.Contains("Piłka"))
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Piłka"))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
@@ -94,7 +92,7 @@ namespace MiniGamesSystem.Commands
                 }
                 else if (arguments.At(1) == "Cola")
                 {
-                    if (pInfoDict[ply.UserId].ListaCzapek.Contains("Cola"))
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Cola"))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
@@ -111,7 +109,7 @@ namespace MiniGamesSystem.Commands
                 }
                 else if (arguments.At(1) == "Beret")
                 {
-                    if (pInfoDict[ply.UserId].ListaCzapek.Contains("Beret"))
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Beret"))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
@@ -128,7 +126,7 @@ namespace MiniGamesSystem.Commands
                 }
                 else if (arguments.At(1) == "Ser")
                 {
-                    if (pInfoDict[ply.UserId].ListaCzapek.Contains("Ser"))
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Ser"))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {

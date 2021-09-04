@@ -24,8 +24,6 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             var ply = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
@@ -38,17 +36,17 @@ namespace MiniGamesSystem.Commands
                 response = "<color=red>Leaderboards can be no larger than 15.</color>";
                 return false;
             }
-            if (pInfoDict.Count != 0)
+            if (Handler.pInfoDict.Count != 0)
             {
                 output = $"\n========== Top {num} najbogatszych graczy: ==========\n";
 
                 for (int i = 0; i < num; i++)
                 {
-                    if (pInfoDict.Count == i) break;
-                    string userid = pInfoDict.ElementAt(i).Key;
-                    PlayerInfo info = pInfoDict[userid];
+                    if (Handler.pInfoDict.Count == i) break;
+                    string userid = Handler.pInfoDict.ElementAt(i).Key;
+                    PlayerInfo info = Handler.pInfoDict[userid];
                     output += $"{i + 1}) <color=#EFC01A>{info.nick}</color> ({userid}) | Coiny: {info.Coins}";
-                    if (i != pInfoDict.Count - 1) output += "\n";
+                    if (i != Handler.pInfoDict.Count - 1) output += "\n";
                     else break;
                 }
                 response = output;

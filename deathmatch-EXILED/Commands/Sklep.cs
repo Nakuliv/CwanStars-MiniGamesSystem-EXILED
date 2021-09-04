@@ -27,17 +27,16 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             var ply = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
             if (arguments.Count == 0)
             {
-                bool hasData = pInfoDict.ContainsKey(ply.UserId);
+                bool hasData = Handler.pInfoDict.ContainsKey(ply.UserId);
                 response =
                     "\n=================== Sklep ===================\n" +
-                    $"twoje Coiny: {(hasData ? pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n" +
+                    $"twoje Coiny: {(hasData ? Handler.pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Czapki:</color>\n" +
                     "Coin - 50 coinów\n" +
@@ -62,19 +61,19 @@ namespace MiniGamesSystem.Commands
                 {
                     if (arguments.At(1) == "Amogus")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 449)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 449)
                         {
 
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Amogus"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Amogus"))
                             {
                                 response = "<color=red>Masz już tego peta!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 450);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Amogus");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 450);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Amogus");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -90,20 +89,20 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Vip")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 9999)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 9999)
                         {
 
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Vip"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Vip"))
                             {
                                 response = "<color=red>Masz już tę rangę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 10000);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Vip");
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 10000);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Vip");
                                 response = "<color=green>Kupiłeś rangę VIP na miesiąc!</color>";
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -146,18 +145,18 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Coin")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 49)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 49)
                         {
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Coin"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Coin"))
                             {
                                 response = "<color=red>Masz już tę czapkę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 50);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Coin");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 50);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Coin");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -173,18 +172,18 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Piłka")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 99)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 99)
                         {
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Piłka"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Piłka"))
                             {
                                 response = "<color=red>Masz już tę czapkę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 100);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Piłka");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 100);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Piłka");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -200,18 +199,18 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Cola")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 149)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 149)
                         {
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Cola"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Cola"))
                             {
                                 response = "<color=red>Masz już tę czapkę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 150);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Cola");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 150);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Cola");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -227,18 +226,18 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Beret")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 249)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 249)
                         {
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Beret"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Beret"))
                             {
                                 response = "<color=red>Masz już tę czapkę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 250);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Beret");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 250);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Beret");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
@@ -254,18 +253,18 @@ namespace MiniGamesSystem.Commands
                     }
                     else if (arguments.At(1) == "Ser")
                     {
-                        if (pInfoDict[ply.UserId].Coins > 999)
+                        if (Handler.pInfoDict[ply.UserId].Coins > 999)
                         {
-                            if (pInfoDict[ply.UserId].ListaCzapek.Contains("Ser"))
+                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Ser"))
                             {
                                 response = "<color=red>Masz już tę czapkę!</color>";
                                 return false;
                             }
                             else
                             {
-                                pInfoDict[ply.UserId].Coins = (pInfoDict[ply.UserId].Coins - 1000);
-                                pInfoDict[ply.UserId].ListaCzapek.Add("Ser");
-                                foreach (KeyValuePair<string, PlayerInfo> info in pInfoDict)
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 1000);
+                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Ser");
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }

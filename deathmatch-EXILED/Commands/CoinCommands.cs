@@ -25,8 +25,6 @@ namespace MiniGamesSystem.Commands
 
         public override void LoadGeneratedCommands() { }
 
-        public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
-
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             var p = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
@@ -48,14 +46,14 @@ namespace MiniGamesSystem.Commands
                     if (arguments.At(0) == "add")
                     {
                         int coiny = int.Parse(arguments.At(2));
-                        pInfoDict[Player.Get(arguments.At(1)).UserId].Coins = (pInfoDict[Player.Get(arguments.At(1)).UserId].Coins + coiny);
+                        Handler.pInfoDict[Player.Get(arguments.At(1)).UserId].Coins = (Handler.pInfoDict[Player.Get(arguments.At(1)).UserId].Coins + coiny);
                         response = $"<color=green>Pomyślnie dodano {coiny} coinów graczowi {Player.Get(arguments.At(1)).Nickname}!</color>";
                         return true;
                     }
                     else if (arguments.At(0) == "remove")
                     {
                         int coiny = int.Parse(arguments.At(2));
-                        pInfoDict[Player.Get(arguments.At(1)).UserId].Coins = (pInfoDict[Player.Get(arguments.At(1)).UserId].Coins - coiny);
+                        Handler.pInfoDict[Player.Get(arguments.At(1)).UserId].Coins = (Handler.pInfoDict[Player.Get(arguments.At(1)).UserId].Coins - coiny);
                         response = $"<color=green>Pomyślnie usunięto {coiny} coinów graczowi {Player.Get(arguments.At(1)).Nickname}!</color>";
                         return true;
                     }
