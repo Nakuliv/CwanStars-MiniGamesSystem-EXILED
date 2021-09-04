@@ -4,6 +4,7 @@ using ServerEv = Exiled.Events.Handlers.Server;
 using PlayerEv = Exiled.Events.Handlers.Player;
 using UnityEngine;
 using System.IO;
+using Exiled.API.Enums;
 
 namespace MiniGamesSystem
 {
@@ -15,10 +16,10 @@ namespace MiniGamesSystem
         public static MiniGamesSystem Instance => LazyInstance.Value;
 
         public override string Name { get; } = "MiniGamesSystem";
-        public override string Author { get; } = "Cwaniak U.G";
-        public override System.Version Version => new System.Version(1, 0, 0);
+        public override string Author { get; } = "Naku (Cwaniaak.)";
+        public override System.Version Version => new System.Version(2, 0, 0);
 
-
+        public override PluginPriority Priority => PluginPriority.Highest;
         private MiniGamesSystem() { }
         private Handler handler;
 
