@@ -26,7 +26,6 @@ namespace MiniGamesSystem
         StringBuilder message = new StringBuilder();
         public List<Vector3> PossibleSpawnsPos = new List<Vector3>();
         Vector3 ChoosedSpawnPos;
-        internal static Dictionary<string, Tuple<HatInfo, HatInfo>> HatPlayers = new Dictionary<string, Tuple<HatInfo, HatInfo>>();
         public List<CoroutineHandle> coroutines = new List<CoroutineHandle>();
         public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
         private List<DoorType> EscapePrimary = new List<DoorType>() { DoorType.EscapePrimary };

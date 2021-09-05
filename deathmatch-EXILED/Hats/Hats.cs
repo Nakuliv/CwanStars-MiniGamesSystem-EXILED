@@ -12,13 +12,6 @@ namespace MiniGamesSystem.Hats
 {
     internal static class Hats
     {
-        internal static void SpawnCurrentHat(this Player p)
-        {
-            if (!Handler.HatPlayers.ContainsKey(p.UserId)) return;
-
-            p.SpawnHat(Handler.HatPlayers[p.UserId].Item1);
-        }
-        
         internal static void SpawnHat(this Player p, HatInfo hat)
         {
             Extensions.SpawnHat(p, hat);

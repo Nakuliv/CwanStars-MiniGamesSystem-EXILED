@@ -56,7 +56,8 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.Coin));
+                            //ply.SpawnHat(new HatInfo(ItemType.Coin, new UnityEngine.Vector3(1, 1, 1), ply.Position));
+                            Hats.Hats.SpawnHat(ply, new HatInfo(ItemType.Coin));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -73,7 +74,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP018));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP018, new UnityEngine.Vector3(1, 1, 1), ply.Position));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -90,7 +91,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP207));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP207, new UnityEngine.Vector3(1, 1, 1), ply.Position));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -107,7 +108,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP268));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP268, new UnityEngine.Vector3(1, 1, 1), ply.Position));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -124,7 +125,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.KeycardScientist));
+                            ply.SpawnHat(new HatInfo(ItemType.KeycardScientist, new UnityEngine.Vector3(2,3,2), ply.Position));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }

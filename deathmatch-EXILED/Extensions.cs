@@ -98,7 +98,7 @@ namespace MiniGamesSystem
 
             if (playerComponent.item != null)
             {
-                UnityEngine.Object.Destroy(playerComponent.item.gameObject);
+                Object.Destroy(playerComponent.item.gameObject);
                 playerComponent.item = null;
             }
 
