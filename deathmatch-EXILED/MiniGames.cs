@@ -12,6 +12,7 @@ namespace MiniGamesSystem
 {
     public class MiniGames
     {
+        static System.Random rnd = new System.Random();
         public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
         public static string EventMsg = "[<color=blue>Tryb</color>]";
         public static List<DoorType> lockedCheckpointLcz = new List<DoorType>() { DoorType.CheckpointLczA, DoorType.CheckpointLczB };
@@ -30,7 +31,7 @@ namespace MiniGamesSystem
             {
                 if (door.Type == DoorType.CheckpointLczA || door.Type == DoorType.CheckpointLczB)
                 {
-                    door.DoorLockType = DoorLockType.SpecialDoorFeature;
+                    door.ChangeLock(DoorLockType.SpecialDoorFeature);
                 }
             }
             foreach (Player player in Player.List)
@@ -72,8 +73,7 @@ namespace MiniGamesSystem
                     {
                         if (door.Type == DoorType.CheckpointLczA || door.Type == DoorType.CheckpointLczB)
                         {
-                            //door.ServerChangeLock(DoorLockReason.SpecialDoorFeature, false);
-                            door.DoorLockType = DoorLockType.None;
+                            door.Unlock();
                             door.BreakDoor();
                         }
                     }
@@ -125,7 +125,7 @@ namespace MiniGamesSystem
             {
                 if (GangWarDoors.Contains(door.Type))
                 {
-                    door.DoorLockType = DoorLockType.SpecialDoorFeature;
+                    door.ChangeLock(DoorLockType.SpecialDoorFeature);
                 }
             }
             foreach (Player player in players)
@@ -354,20 +354,62 @@ namespace MiniGamesSystem
         //PeanutRun
         public static void PeanutRunn()
         {
-            PeanutRun.Plugin.Singleton.Methods.EnableGamemode(true);
+            Warhead.Start();
+                foreach (Player player in Player.List)
+                    player.Role = RoleType.Scp173;
+
+            Round.IsLocked = true;
         }
 
         public static void DgBall()
         {
+            Round.IsLocked = true;
+            Vector3 spawnPos = Extensions.GetRandomSpawnPoint(RoleType.Scp173);
+            foreach (Player player in Player.List)
+            {
+                player.Role = RoleType.ClassD;
+                Timing.CallDelayed(0.5f, () => player.Position = spawnPos);
+            }
+
             foreach (Door door in EMap.Doors)
             {
                 if (door.Type == DoorType.Scp173Gate)
                 {
 
-                    door.DoorLockType = DoorLockType.SpecialDoorFeature;
+                    door.ChangeLock(DoorLockType.SpecialDoorFeature);
                 }
             }
-            DodgeBall.Plugin.Singleton.Methods.EnableGamemode(ItemType.SCP018, true);
+            Timing.RunCoroutine(DodgeballLoop(), "dgballLoop");
+        }
+
+        static IEnumerator<float> DodgeballLoop()
+        {
+            yield return Timing.WaitForSeconds(10f);
+
+            for (; ; )
+            {
+                int count = 0;
+                Player winner = null;
+                foreach (Player player in Player.List)
+                    if (player.IsAlive)
+                    {
+                        count++;
+                        winner = player;
+                    }
+
+                if (count <= 1)
+                {
+                    Round.IsLocked = false;
+                    Map.Broadcast(10, $"<B><color=green>{winner.Nickname}</color> wygrał!</B>");
+                    yield break;
+                }
+
+                foreach (Player player in Player.List)
+                    if (rnd.Next(100) >= 50)
+                        new ExplosiveGrenade(ItemType.SCP018).SpawnActive(player.Position, player);
+
+                yield return Timing.WaitForSeconds(5.5f);
+            }
         }
     }
 }

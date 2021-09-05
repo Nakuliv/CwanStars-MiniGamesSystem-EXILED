@@ -3,6 +3,7 @@ using Exiled.API.Features;
 using ServerEv = Exiled.Events.Handlers.Server;
 using PlayerEv = Exiled.Events.Handlers.Player;
 using MapEv = Exiled.Events.Handlers.Map;
+using WarheadEv = Exiled.Events.Handlers.Warhead;
 using UnityEngine;
 using System.IO;
 using Exiled.API.Enums;
@@ -31,6 +32,7 @@ namespace MiniGamesSystem
 
             if (!Directory.Exists(DataPath)) Directory.CreateDirectory(DataPath);
 
+            WarheadEv.Detonated += handler.OnWarheadDetonated;
             MapEv.SpawningItem += handler.OnSpawningItems;
             ServerEv.WaitingForPlayers += handler.OnWTP;
             PlayerEv.Verified += handler.OnJoin;
@@ -40,13 +42,14 @@ namespace MiniGamesSystem
             PlayerEv.Shooting += handler.OnShooting;
             ServerEv.EndingRound += handler.OnRndEnd;
             ServerEv.RespawningTeam += handler.OnRespawning;
-            Exiled.Events.Handlers.Warhead.Stopping += handler.OnWarheadCancel;
+            WarheadEv.Stopping += handler.OnWarheadCancel;
             PlayerEv.Died += handler.OnPlyDied;
         }
 
         public override void OnDisabled()
         {
             base.OnDisabled();
+            WarheadEv.Detonated -= handler.OnWarheadDetonated;
             MapEv.SpawningItem -= handler.OnSpawningItems;
             ServerEv.WaitingForPlayers -= handler.OnWTP;
             PlayerEv.Verified -= handler.OnJoin;
@@ -56,7 +59,7 @@ namespace MiniGamesSystem
             PlayerEv.Shooting -= handler.OnShooting;
             ServerEv.EndingRound -= handler.OnRndEnd;
             ServerEv.RespawningTeam -= handler.OnRespawning;
-            Exiled.Events.Handlers.Warhead.Stopping -= handler.OnWarheadCancel;
+            WarheadEv.Stopping -= handler.OnWarheadCancel;
             PlayerEv.Died -= handler.OnPlyDied;
             handler = null;
         }

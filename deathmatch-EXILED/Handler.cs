@@ -143,17 +143,25 @@ namespace MiniGamesSystem
             {
                 if (EscapePrimary.Contains(door.Type))
                 {
-                    door.DoorLockType = DoorLockType.SpecialDoorFeature;
+                    door.ChangeLock(DoorLockType.SpecialDoorFeature);
                 }
 
                 if (SurfaceGate.Contains(door.Type))
                 {
-                    door.DoorLockType = DoorLockType.SpecialDoorFeature;
+                    door.ChangeLock(DoorLockType.SpecialDoorFeature);
                     door.IsOpen = false;
                 }
 
             }
 
+        }
+
+        public void OnWarheadDetonated()
+        {
+            if (AktualnyEvent == "PeanutRun")
+            {
+                Round.IsLocked = false;
+            }
         }
 
         public void OnWarheadCancel(StoppingEventArgs ev)
@@ -202,7 +210,8 @@ namespace MiniGamesSystem
                 if (Extensions.hasTag) ply.RefreshTag();
                 if (Extensions.isHidden) ply.ReferenceHub.characterClassManager.CmdRequestHideTag();
             }
-
+            Timing.CallDelayed(1.5f, () =>
+            {
             if (Deathmatch > (GangWar + hideAndSeek + dgball + peanutRun))
             {
                 AktualnyEvent = "deathMatch";
@@ -256,6 +265,7 @@ namespace MiniGamesSystem
                 return;
             }
             Map.Broadcast(5, $"{EventMsg} <b><color>{AktualnyEvent}</color></b>");
+            });
         }
 
         public void OnRespawning(RespawningTeamEventArgs ev)
@@ -371,15 +381,6 @@ namespace MiniGamesSystem
             Commands.Vote.vote.Clear();
             AktualnyEvent = "";
 
-            if (AktualnyEvent == "PeanutRun")
-            {
-                PeanutRun.Plugin.Singleton.Methods.DisableGamemode(true);
-            }
-            else if (AktualnyEvent == "DodgeBall")
-            {
-                DodgeBall.Plugin.Singleton.Methods.DisableGamemode(true);
-            }
-
             foreach (CoroutineHandle coroutine in coroutines)
             {
                 Timing.KillCoroutines(coroutine);
@@ -389,6 +390,7 @@ namespace MiniGamesSystem
             Timing.KillCoroutines("dmCR");
             Timing.KillCoroutines("dmcheck");
             Timing.KillCoroutines("hascheck");
+            Timing.KillCoroutines("dgballLoop");
             Timing.KillCoroutines();
             MiniGames.team1.Clear();
 
@@ -512,7 +514,6 @@ namespace MiniGamesSystem
                 Timing.CallDelayed(0.5f, () =>
                 {
                     ev.Player.Role = RoleType.NtfCaptain;
-                    ev.Player.ClearInventory(true);
                     ev.Player.IsGodModeEnabled = true;
                     ev.Player.RankName = "W lobby";
                     ev.Player.RankColor = "pumpkin";
@@ -520,6 +521,7 @@ namespace MiniGamesSystem
 
                 Timing.CallDelayed(1f, () =>
                 {
+                    ev.Player.ClearInventory(true);
                     ev.Player.ReferenceHub.playerEffectsController.EnableEffect<CustomPlayerEffects.Scp207>(999f, false);
                     ev.Player.ReferenceHub.playerEffectsController.ChangeEffectIntensity<CustomPlayerEffects.Scp207>(4);
                     ev.Player.Position = ChoosedSpawnPos;
