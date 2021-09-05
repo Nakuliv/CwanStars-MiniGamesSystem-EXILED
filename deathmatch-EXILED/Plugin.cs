@@ -2,6 +2,7 @@
 using Exiled.API.Features;
 using ServerEv = Exiled.Events.Handlers.Server;
 using PlayerEv = Exiled.Events.Handlers.Player;
+using MapEv = Exiled.Events.Handlers.Map;
 using UnityEngine;
 using System.IO;
 using Exiled.API.Enums;
@@ -30,6 +31,7 @@ namespace MiniGamesSystem
 
             if (!Directory.Exists(DataPath)) Directory.CreateDirectory(DataPath);
 
+            MapEv.SpawningItem += handler.OnSpawningItems;
             ServerEv.WaitingForPlayers += handler.OnWTP;
             PlayerEv.Verified += handler.OnJoin;
             ServerEv.RoundStarted += handler.OnRS;
@@ -45,6 +47,7 @@ namespace MiniGamesSystem
         public override void OnDisabled()
         {
             base.OnDisabled();
+            MapEv.SpawningItem -= handler.OnSpawningItems;
             ServerEv.WaitingForPlayers -= handler.OnWTP;
             PlayerEv.Verified -= handler.OnJoin;
             ServerEv.RoundStarted -= handler.OnRS;

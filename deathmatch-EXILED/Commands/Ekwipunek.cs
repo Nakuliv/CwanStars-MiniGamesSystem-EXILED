@@ -57,13 +57,13 @@ namespace MiniGamesSystem.Commands
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
                             ply.SpawnHat(new HatInfo(ItemType.Coin));
-                            response = "<color=green>Założyłeś czapkę!<color>";
+                            response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
                     }
                     else
                     {
-                        response = "<color=red>Nie masz takiej czapki w ekwipunku!<color>";
+                        response = "<color=red>Nie masz takiej czapki w ekwipunku!</color>";
                         return false;
                     }
                 }
@@ -74,7 +74,7 @@ namespace MiniGamesSystem.Commands
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
                             ply.SpawnHat(new HatInfo(ItemType.SCP018));
-                            response = "<color=green>Założyłeś czapkę!<color>";
+                            response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
                     }
@@ -91,7 +91,7 @@ namespace MiniGamesSystem.Commands
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
                             ply.SpawnHat(new HatInfo(ItemType.SCP207));
-                            response = "<color=green>Założyłeś czapkę!<color>";
+                            response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
                     }
@@ -108,7 +108,7 @@ namespace MiniGamesSystem.Commands
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
                             ply.SpawnHat(new HatInfo(ItemType.SCP268));
-                            response = "<color=green>Założyłeś czapkę!<color>";
+                            response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
                     }
@@ -125,7 +125,7 @@ namespace MiniGamesSystem.Commands
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
                             ply.SpawnHat(new HatInfo(ItemType.KeycardScientist));
-                            response = "<color=green>Założyłeś czapkę!<color>";
+                            response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
                     }

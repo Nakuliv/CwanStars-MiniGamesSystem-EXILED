@@ -56,6 +56,11 @@ namespace MiniGamesSystem
             return string.Join("\n", pInfoDict[ply.UserId].ListaCzapek);
         }
 
+        public void OnSpawningItems(SpawningItemEventArgs ev)
+        {
+            ev.IsAllowed = false;
+        }
+
         public void OnWTP()
         {
             SpawnManager();
