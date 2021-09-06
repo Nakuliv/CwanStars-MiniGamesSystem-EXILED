@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommandSystem;
 using Exiled.API.Features;
+using MEC;
 using MiniGamesSystem.Hats;
 using RemoteAdmin;
+using UnityEngine;
 
 namespace MiniGamesSystem.Commands
 {
@@ -74,7 +77,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP018, new UnityEngine.Vector3(1, 1, 1), ply.Position));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP018));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -91,7 +94,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP207, new UnityEngine.Vector3(1, 1, 1), ply.Position));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP207));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -108,7 +111,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.SCP268, new UnityEngine.Vector3(1, 1, 1), ply.Position));
+                            ply.SpawnHat(new HatInfo(ItemType.SCP268));
                             response = "<color=green>Założyłeś czapkę!</color>";
                             return true;
                         }
@@ -125,8 +128,27 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            ply.SpawnHat(new HatInfo(ItemType.KeycardScientist, new UnityEngine.Vector3(2,3,2), ply.Position));
+                            ply.SpawnHat(new HatInfo(ItemType.KeycardScientist, new UnityEngine.Vector3(2,3,2)));
                             response = "<color=green>Założyłeś czapkę!</color>";
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        response = "<color=red>Nie masz takiej czapki w ekwipunku!</color>";
+                        return false;
+                    }
+                }
+                else if (arguments.At(1) == "Amogus")
+                {
+                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Amogus"))
+                    {
+                        if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
+                        {
+                            var dummy = new Dummy(ply.Position, new Quaternion(), RoleType.Tutorial);
+                            Timing.RunCoroutine(Walk(ply, dummy));
+                            //Extensions.SpawnDummyModel(ply, ply.Position, ply.GameObject.transform.localRotation, RoleType.Scp096, 0.5f, 0.5f, 0.5f, out int dummyIndex);
+                            response = "<color=green>Test pet!</color>";
                             return true;
                         }
                     }
@@ -155,6 +177,21 @@ namespace MiniGamesSystem.Commands
             }
             response = "";
             return true;
+        }
+        private IEnumerator<float> Walk(Player ply, Dummy _dummy)
+        {
+            for (; ; )
+            {
+                yield return Timing.WaitForSeconds(0.1f);
+
+                _dummy.Movement = PlayerMovementState.Walking;
+                _dummy.Direction = MovementDirection.Forward;
+                _dummy.RotateToPosition(ply.Position);
+                float distance = Vector3.Distance(ply.Position, _dummy.Position);
+
+                if (distance <= 1.25f)
+                    _dummy.Direction = MovementDirection.Stop;
+            }
         }
     }
 }

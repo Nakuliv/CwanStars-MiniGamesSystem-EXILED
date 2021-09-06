@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -110,6 +111,7 @@
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Commands\Vote.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Dummy.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Hats\HatInfo.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Hats\Hats.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MiniGames.cs" />
+    <Compile Include="MovementDirection.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,10 @@
-﻿using Exiled.API.Features;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using MiniGamesSystem.Hats;
+using Mirror;
+using RemoteAdmin;
 using UnityEngine;
 
 namespace MiniGamesSystem
@@ -9,6 +13,39 @@ namespace MiniGamesSystem
     {
         internal static bool hasTag;
         internal static bool isHidden;
+        public static Dictionary<Player, List<GameObject>> DumHubs = new Dictionary<Player, List<GameObject>>();
+
+        public static void SpawnDummyModel(Player ply, Vector3 position, Quaternion rotation, RoleType role, float x, float y, float z, out int dummyIndex)
+        {
+            dummyIndex = 0;
+            GameObject obj = Object.Instantiate(NetworkManager.singleton.playerPrefab);
+            CharacterClassManager ccm = obj.GetComponent<CharacterClassManager>();
+            if (ccm == null)
+                Log.Error("CCM is null, this can cause problems!");
+            ccm.CurClass = role;
+            ccm.GodMode = true;
+            obj.GetComponent<NicknameSync>().Network_myNickSync = " ";
+            obj.GetComponent<NicknameSync>().Network_customPlayerInfoString = "<color=white>[</color><color=blue>Pet</color><color=white>]</color> Test\n<color=white>[</color><color=#ff7518>Właściciel</color><color=white>]</color> <color=green>Cwan</color><color=yellow>Stars</color>\n<color=white>[</color><color=#EFC01A>INFO</color><color=white>]</color> Przez najnowszy update gry pety aktulnie nie działają.";
+            obj.GetComponent<QueryProcessor>().PlayerId = 9999;
+            obj.GetComponent<QueryProcessor>().NetworkPlayerId = 9999;
+            obj.transform.localScale = new Vector3(x, y, z);
+            obj.GetComponent<AnimationController>().Network_curMoveState = (byte)PlayerMovementState.Walking;
+            obj.transform.position = position;
+            obj.transform.rotation = rotation;
+            NetworkServer.Spawn(obj);
+            if (DumHubs.TryGetValue(ply, out List<GameObject> objs))
+            {
+                objs.Add(obj);
+            }
+            else
+            {
+                DumHubs.Add(ply, new List<GameObject>());
+                DumHubs[ply].Add(obj);
+                dummyIndex = DumHubs[ply].Count();
+            }
+            if (dummyIndex != 1)
+                dummyIndex = objs.Count();
+        }
 
         public static void SetRank(this Player player, string rank, string color = "default")
         {
