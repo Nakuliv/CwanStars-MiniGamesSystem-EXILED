@@ -201,6 +201,7 @@ namespace MiniGamesSystem
 
         public void OnRS()
         {
+            GameCore.Console.singleton.TypeCommand(@"/vcm stop /home/container/.config/EXILED/waiting3.f32le");
             foreach (Player ply in Player.List)
             {
                 ply.IsGodModeEnabled = false;
