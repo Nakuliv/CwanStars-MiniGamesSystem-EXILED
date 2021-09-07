@@ -209,64 +209,65 @@ namespace MiniGamesSystem
                 if (Extensions.hasTag) ply.RefreshTag();
                 if (Extensions.isHidden) ply.ReferenceHub.characterClassManager.CmdRequestHideTag();
             }
+            if(AktualnyEvent == "PeanutRun" || AktualnyEvent == "deathMatch")
+            {
+                Round.IsLocked = true;
+            }
             Timing.CallDelayed(1.5f, () =>
             {
-                if (Deathmatch > (GangWar + hideAndSeek + dgball + peanutRun))
+            if (Deathmatch > (GangWar + hideAndSeek + dgball + peanutRun))
+            {
+                AktualnyEvent = "deathMatch";
+                MiniGames.deathMatch();
+            }
+            else if (peanutRun > (Deathmatch + hideAndSeek + GangWar + dgball))
+            {
+                AktualnyEvent = "PeanutRun";
+                MiniGames.PeanutRunn();
+            }
+            else if (GangWar > (Deathmatch + hideAndSeek + peanutRun + dgball))
+            {
+                AktualnyEvent = "WojnaGangow";
+                MiniGames.WojnaGangow();
+            }
+            else if (hideAndSeek > (GangWar + Deathmatch + peanutRun + dgball))
+            {
+                AktualnyEvent = "HideAndSeek";
+                MiniGames.HideAndSeek();
+            }
+            else if (dgball > (GangWar + Deathmatch + peanutRun + hideAndSeek))
+            {
+                AktualnyEvent = "DodgeBall";
+                MiniGames.DgBall();
+            }
+            else
+            {
+                switch (rnd.Next(1, 6))
                 {
-                    AktualnyEvent = "deathMatch";
-                    MiniGames.deathMatch();
+                    case 1:
+                        AktualnyEvent = "deathMatch";
+                        MiniGames.deathMatch();
+                        break;
+                    case 2:
+                        AktualnyEvent = "WojnaGangow";
+                        MiniGames.WojnaGangow();
+                        break;
+                    case 3:
+                        AktualnyEvent = "HideAndSeek";
+                        MiniGames.HideAndSeek();
+                        break;
+                    case 4:
+                        AktualnyEvent = "PeanutRun";
+                        MiniGames.PeanutRunn();
+                        break;
+                    case 5:
+                        AktualnyEvent = "DodgeBall";
+                        MiniGames.DgBall();
+                        break;
                 }
-                else if (peanutRun > (Deathmatch + hideAndSeek + GangWar + dgball))
-                {
-                    AktualnyEvent = "PeanutRun";
-                    MiniGames.PeanutRunn();
-                }
-                else if (GangWar > (Deathmatch + hideAndSeek + peanutRun + dgball))
-                {
-                    AktualnyEvent = "WojnaGangow";
-                    MiniGames.WojnaGangow();
-                }
-                else if (hideAndSeek > (GangWar + Deathmatch + peanutRun + dgball))
-                {
-                    AktualnyEvent = "HideAndSeek";
-                    MiniGames.HideAndSeek();
-                }
-                else if (dgball > (GangWar + Deathmatch + peanutRun + hideAndSeek))
-                {
-                    AktualnyEvent = "DodgeBall";
-                    MiniGames.DgBall();
-                }
-                else
-                {
-                    switch (rnd.Next(1, 6))
-                    {
-                        case 1:
-                            Round.IsLocked = true;
-                            AktualnyEvent = "deathMatch";
-                            MiniGames.deathMatch();
-                            break;
-                        case 2:
-                            AktualnyEvent = "WojnaGangow";
-                            MiniGames.WojnaGangow();
-                            break;
-                        case 3:
-                            AktualnyEvent = "HideAndSeek";
-                            MiniGames.HideAndSeek();
-                            break;
-                        case 4:
-                            Round.IsLocked = true;
-                            AktualnyEvent = "PeanutRun";
-                            MiniGames.PeanutRunn();
-                            break;
-                        case 5:
-                            Round.IsLocked = true;
-                            AktualnyEvent = "DodgeBall";
-                            MiniGames.DgBall();
-                            break;
-                    }
-                    return;
-                }
-                Map.Broadcast(5, $"{EventMsg} <b><color>{AktualnyEvent}</color></b>");
+                return;
+            }
+            Map.Broadcast(5, $"{EventMsg} <b><color>{AktualnyEvent}</color></b>");
             });
         }
 
@@ -426,7 +427,7 @@ namespace MiniGamesSystem
             if (props.Contains(ev.Player.UserId))
             {
                 Item item = new Item(ev.Pickup.Type);
-
+                
                 item.Spawn(ev.Pickup.Position, default);
 
                 ev.Player.IsInvisible = true;
@@ -463,7 +464,7 @@ namespace MiniGamesSystem
         public IEnumerator<float> Czapki(Player ply, ItemType type)
         {
             Item item = new Item(type);
-
+            
             Pickup Item = item.Spawn(ply.Position, default);
             while (true)
             {
