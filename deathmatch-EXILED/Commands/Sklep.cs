@@ -34,18 +34,18 @@ namespace MiniGamesSystem.Commands
                     $"twoje Coiny: {(hasData ? Handler.pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Czapki:</color>\n" +
-                    "Coin - 50 coinów\n" +
-                    "Piłka - 100 Coinów\n" +
-                    "Cola - 150 Coinów\n" +
-                    "Beret - 250 Coinów\n" +
-                    "Ser - 1000 Coinów\n" +
+                    "Coin - <color=yellow>50</color> coinów\n" +
+                    "Piłka - <color=yellow>100</color> Coinów\n" +
+                    "Cola - <color=yellow>150</color> Coinów\n" +
+                    "Beret - <color=yellow>250</color> Coinów\n" +
+                    "Ser - <color=yellow>1000</color> Coinów\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Pety (BETA):</color>\n" +
-                    "Amogus - 450 coinów\n" +
+                    "Amogus - <color=yellow>450</color> coinów\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Rangi:</color>\n" +
-                    "VIP na miesiąc - 10000 Coinów\n" +
-                    "Admin - 999999999 Coinów\n" +
+                    "VIP na miesiąc - <color=yellow>10000</color> Coinów\n" +
+                    "Admin - <color=yellow>999999999</color> Coinów\n" +
                     "---------------------------\n" +
                     "<color=cyan>Aby kupić jakiś item, wpisz:</color> <color=yellow>.sklep kup [nazwa itemu]</color>";
                 return true;

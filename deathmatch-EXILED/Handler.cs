@@ -209,7 +209,7 @@ namespace MiniGamesSystem
                 if (Extensions.hasTag) ply.RefreshTag();
                 if (Extensions.isHidden) ply.ReferenceHub.characterClassManager.CmdRequestHideTag();
             }
-            if(AktualnyEvent == "PeanutRun" || AktualnyEvent == "deathMatch")
+            if(AktualnyEvent == "PeanutRun" || AktualnyEvent == "deathMatch" || AktualnyEvent == "DodgeBall")
             {
                 Round.IsLocked = true;
             }
@@ -290,6 +290,7 @@ namespace MiniGamesSystem
                             info.Coins = info.Coins + 1;
 
                             pInfoDict[ply.UserId] = info;
+                            ply.ShowHint("Otrzymałeś 1 <color=yellow>Coin</color>");
                         }
 
                         Map.Broadcast(5, $"{ply.Nickname} wygrali!");
@@ -305,6 +306,7 @@ namespace MiniGamesSystem
                             info.Coins = info.Coins + 1;
 
                             pInfoDict[ply.UserId] = info;
+                            ply.ShowHint($"Otrzymałeś <color=yellow>1</color> Coin.");
                         }
 
                         Map.Broadcast(5, $"{ply.Nickname} wygrał!");
@@ -321,6 +323,7 @@ namespace MiniGamesSystem
                         info.Coins = info.Coins + 2;
 
                         pInfoDict[ply.UserId] = info;
+                        ply.ShowHint("Otrzymałeś <color=yellow>2</color> Coiny.");
                     }
                 }
             }
@@ -340,6 +343,7 @@ namespace MiniGamesSystem
                                 info.Coins++;
 
                                 pInfoDict[ply.UserId] = info;
+                                ply.ShowHint("Otrzymałeś <color=yellow>1</color> Coin.");
                             }
                         }
                     }
@@ -370,6 +374,7 @@ namespace MiniGamesSystem
                         info.Coins++;
 
                         pInfoDict[ply.UserId] = info;
+                        ply.ShowHint("Otrzymałeś <color=yellow>1</color> Coin.");
                     }
                 }
             }
