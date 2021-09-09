@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CommandSystem;
 using Exiled.API.Features;
+using FakePlayers.API;
 using MEC;
 using MiniGamesSystem.Hats;
 using RemoteAdmin;
@@ -145,8 +146,7 @@ namespace MiniGamesSystem.Commands
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            var dummy = new Dummy(ply.Position, new Quaternion(), RoleType.Tutorial);
-                            Timing.RunCoroutine(Walk(ply, dummy));
+                            var pl = FakePlayer.Create<CwanStarsFakePlayer>(ply.Position, new Vector3(0.5f, 0.5f, 0.5f), RoleType.ChaosRifleman, ItemType.GunCOM18, "CwanStars", "Pet", true);
                             //Extensions.SpawnDummyModel(ply, ply.Position, ply.GameObject.transform.localRotation, RoleType.Scp096, 0.5f, 0.5f, 0.5f, out int dummyIndex);
                             response = "<color=green>Test pet!</color>";
                             return true;
@@ -177,21 +177,6 @@ namespace MiniGamesSystem.Commands
             }
             response = "";
             return true;
-        }
-        private IEnumerator<float> Walk(Player ply, Dummy _dummy)
-        {
-            for (; ; )
-            {
-                yield return Timing.WaitForSeconds(0.1f);
-
-                _dummy.Movement = PlayerMovementState.Walking;
-                _dummy.Direction = MovementDirection.Forward;
-                _dummy.RotateToPosition(ply.Position);
-                float distance = Vector3.Distance(ply.Position, _dummy.Position);
-
-                if (distance <= 1.25f)
-                    _dummy.Direction = MovementDirection.Stop;
-            }
         }
     }
 }

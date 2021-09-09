@@ -352,11 +352,18 @@ namespace MiniGamesSystem
             }
         }
         //PeanutRun
-        public static void PeanutRunn()
+        public static void WarheadRunn()
         {
             Warhead.Start();
-                foreach (Player player in Player.List)
-                    player.Role = RoleType.Scp173;
+            foreach (Player player in Player.List)
+            {
+                player.Role = RoleType.ClassD;
+                player.ReferenceHub.playerEffectsController.EnableEffect<CustomPlayerEffects.Scp207>(999f, false);
+                player.ReferenceHub.playerEffectsController.ChangeEffectIntensity<CustomPlayerEffects.Scp207>(3);
+                player.AddItem(ItemType.Adrenaline);
+                player.AddItem(ItemType.Adrenaline);
+                player.AddItem(ItemType.Adrenaline);
+            }
 
             Round.IsLocked = true;
         }

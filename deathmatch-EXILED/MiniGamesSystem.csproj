@@ -71,6 +71,9 @@
     <Reference Include="Exiled.Updater, Version=3.1.1.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\EXILED.3.0.0-alpha.81\lib\net472\Exiled.Updater.dll</HintPath>
     </Reference>
+    <Reference Include="FakePlayers.API">
+      <HintPath>..\..\..\..\Desktop\FakePlayerAPI\FakePlayerAPI-master\API\bin\Debug\net472\FakePlayers.API.dll</HintPath>
+    </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\Mirror.dll</HintPath>
@@ -111,7 +114,7 @@
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Commands\Vote.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Dummy.cs" />
+    <Compile Include="CwanStarsFakePlayer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Hats\HatInfo.cs" />
@@ -120,7 +123,6 @@
     <Compile Include="Hats\Hats.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MiniGames.cs" />
-    <Compile Include="MovementDirection.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

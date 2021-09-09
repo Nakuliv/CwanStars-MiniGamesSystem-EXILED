@@ -37,7 +37,7 @@ namespace MiniGamesSystem
         public static int Deathmatch = 0;
         public static int GangWar = 0;
         public static int hideAndSeek = 0;
-        public static int peanutRun = 0;
+        public static int warheadRun = 0;
         public static int dgball = 0;
 
         public static string AktualnyEvent = "";
@@ -157,7 +157,7 @@ namespace MiniGamesSystem
 
         public void OnWarheadDetonated()
         {
-            if (AktualnyEvent == "PeanutRun")
+            if (AktualnyEvent == "WarheadRun")
             {
                 Round.IsLocked = false;
             }
@@ -165,7 +165,7 @@ namespace MiniGamesSystem
 
         public void OnWarheadCancel(StoppingEventArgs ev)
         {
-            if (AktualnyEvent == "PeanutRun")
+            if (AktualnyEvent == "WarheadRun")
             {
                 ev.IsAllowed = false;
             }
@@ -210,33 +210,33 @@ namespace MiniGamesSystem
                 if (Extensions.hasTag) ply.RefreshTag();
                 if (Extensions.isHidden) ply.ReferenceHub.characterClassManager.CmdRequestHideTag();
             }
-            if(AktualnyEvent == "PeanutRun" || AktualnyEvent == "deathMatch" || AktualnyEvent == "DodgeBall")
+            if(AktualnyEvent == "WarheadRun" || AktualnyEvent == "deathMatch" || AktualnyEvent == "DodgeBall")
             {
                 Round.IsLocked = true;
             }
             Timing.CallDelayed(1.5f, () =>
             {
-            if (Deathmatch > (GangWar + hideAndSeek + dgball + peanutRun))
+            if (Deathmatch > (GangWar + hideAndSeek + dgball + warheadRun))
             {
                 AktualnyEvent = "deathMatch";
                 MiniGames.deathMatch();
             }
-            else if (peanutRun > (Deathmatch + hideAndSeek + GangWar + dgball))
+            else if (warheadRun > (Deathmatch + hideAndSeek + GangWar + dgball))
             {
-                AktualnyEvent = "PeanutRun";
-                MiniGames.PeanutRunn();
+                AktualnyEvent = "WarheadRun";
+                MiniGames.WarheadRunn();
             }
-            else if (GangWar > (Deathmatch + hideAndSeek + peanutRun + dgball))
+            else if (GangWar > (Deathmatch + hideAndSeek + warheadRun + dgball))
             {
                 AktualnyEvent = "WojnaGangow";
                 MiniGames.WojnaGangow();
             }
-            else if (hideAndSeek > (GangWar + Deathmatch + peanutRun + dgball))
+            else if (hideAndSeek > (GangWar + Deathmatch + warheadRun + dgball))
             {
                 AktualnyEvent = "HideAndSeek";
                 MiniGames.HideAndSeek();
             }
-            else if (dgball > (GangWar + Deathmatch + peanutRun + hideAndSeek))
+            else if (dgball > (GangWar + Deathmatch + warheadRun + hideAndSeek))
             {
                 AktualnyEvent = "DodgeBall";
                 MiniGames.DgBall();
@@ -258,8 +258,8 @@ namespace MiniGamesSystem
                         MiniGames.HideAndSeek();
                         break;
                     case 4:
-                        AktualnyEvent = "PeanutRun";
-                        MiniGames.PeanutRunn();
+                        AktualnyEvent = "WarheadRun";
+                        MiniGames.WarheadRunn();
                         break;
                     case 5:
                         AktualnyEvent = "DodgeBall";
@@ -279,11 +279,11 @@ namespace MiniGamesSystem
 
         public void OnRndEnd(EndingRoundEventArgs ev)
         {
-            if (AktualnyEvent == "PeanutRun")
+            if (AktualnyEvent == "WarheadRun")
             {
                 if (Player.Get(RoleType.Scp173).Count() > 1)
                 {
-                    foreach (Player ply in Player.Get(RoleType.Scp173))
+                    foreach (Player ply in Player.Get(RoleType.ClassD))
                     {
                         if (pInfoDict.ContainsKey(ply.UserId))
                         {
@@ -385,7 +385,7 @@ namespace MiniGamesSystem
             Deathmatch = 0;
             GangWar = 0;
             hideAndSeek = 0;
-            peanutRun = 0;
+            warheadRun = 0;
             dgball = 0;
             Commands.Vote.vote.Clear();
             AktualnyEvent = "";
@@ -558,7 +558,7 @@ namespace MiniGamesSystem
                 }
 
 
-                message.Append($"<size=25><B><color=#00fe0f>DeathMatch</color> [id: 1 | głosy: {Deathmatch}]  |  <color=#00fe0f>WojnaGangów</color> [id: 2 | głosy: {GangWar}]  |  <color=#00fe0f>HideAndSeek</color> [id: 3 | głosy: {hideAndSeek}]     <color=#00fe0f>PeanutRun</color> [id: 4 | głosy: {peanutRun}]  |  <color=#00fe0f>Dodgeball</color> [id: 5 | głosy: {dgball}]</size><size=100><color=yellow>" + MiniGamesSystem.Instance.Config.TopMessage);
+                message.Append($"<size=25><B><color=#00fe0f>DeathMatch</color> [id: 1 | głosy: {Deathmatch}]  |  <color=#00fe0f>WojnaGangów</color> [id: 2 | głosy: {GangWar}]  |  <color=#00fe0f>HideAndSeek</color> [id: 3 | głosy: {hideAndSeek}]     <color=#00fe0f>WarheadRun</color> [id: 4 | głosy: {warheadRun}]  |  <color=#00fe0f>Dodgeball</color> [id: 5 | głosy: {dgball}]</size><size=100><color=yellow>" + MiniGamesSystem.Instance.Config.TopMessage);
 
                 short NetworkTimer = GameCore.RoundStart.singleton.NetworkTimer;
 
