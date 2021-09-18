@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using CommandSystem;
 using Exiled.API.Features;
+using MiniGamesSystem.Pets;
 using Newtonsoft.Json;
 using RemoteAdmin;
 
@@ -41,7 +42,9 @@ namespace MiniGamesSystem.Commands
                     "Ser - <color=yellow>1000</color> Coinów\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Pety (BETA):</color>\n" +
-                    "Amogus - <color=yellow>450</color> coinów\n" +
+                    "Amogus - <color=yellow>500</color> coinów\n" +
+                    "Doggo - <color=yellow>1000</color> coinów\n" +
+                    "(<color=#EFC01A>NOWOŚĆ!</color>)Custom - <color=yellow>20000</color> coinów\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Rangi:</color>\n" +
                     "VIP na miesiąc - <color=yellow>10000</color> Coinów\n" +
@@ -59,20 +62,48 @@ namespace MiniGamesSystem.Commands
                         if (Handler.pInfoDict[ply.UserId].Coins > 449)
                         {
 
-                            if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Amogus"))
+                            if (Handler.pInfoDict[ply.UserId].ListaPetow.Contains(PetType.Amogus))
                             {
                                 response = "<color=red>Masz już tego peta!</color>";
                                 return false;
                             }
                             else
                             {
-                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 450);
-                                Handler.pInfoDict[ply.UserId].ListaCzapek.Add("Amogus");
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 500);
+                                Handler.pInfoDict[ply.UserId].ListaPetow.Add(PetType.Amogus);
                                 foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
                                 {
                                     File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
                                 }
                                 response = "<color=green>Kupiłeś Amogus, wpisz .eq aby zobaczyć listę twoich czapek i petów, lub nałożyć czapkę!</color>";
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            response = "<color=red>Nie stać cię na to!</color>";
+                            return false;
+                        }
+                    }
+                    else if (arguments.At(1) == "Doggo")
+                    {
+                        if (Handler.pInfoDict[ply.UserId].Coins > 999)
+                        {
+
+                            if (Handler.pInfoDict[ply.UserId].ListaPetow.Contains(PetType.Doggo))
+                            {
+                                response = "<color=red>Masz już tego peta!</color>";
+                                return false;
+                            }
+                            else
+                            {
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 1000);
+                                Handler.pInfoDict[ply.UserId].ListaPetow.Add(PetType.Doggo);
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
+                                {
+                                    File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
+                                }
+                                response = "<color=green>Kupiłeś Doggo, wpisz .eq aby zobaczyć listę twoich czapek i petów, lub nałożyć czapkę!</color>";
                                 return true;
                             }
                         }

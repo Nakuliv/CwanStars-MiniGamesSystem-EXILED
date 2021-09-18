@@ -5,6 +5,7 @@ using Exiled.API.Features;
 using FakePlayers.API;
 using MEC;
 using MiniGamesSystem.Hats;
+using MiniGamesSystem.Pets;
 using RemoteAdmin;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace MiniGamesSystem.Commands
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Ekwipunek : ParentCommand
     {
+        FakePlayer _dummy;
         public Ekwipunek() => LoadGeneratedCommands();
 
         public override string Command { get; } = "ekwipunek";
@@ -142,14 +144,15 @@ namespace MiniGamesSystem.Commands
                 }
                 else if (arguments.At(1) == "Amogus")
                 {
-                    if (Handler.pInfoDict[ply.UserId].ListaCzapek.Contains("Amogus"))
+                    if (Handler.pInfoDict[ply.UserId].ListaPetow.Contains(PetType.Amogus))
                     {
                         if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
                         {
-                            var pl = FakePlayer.Create<CwanStarsFakePlayer>(ply.Position, new Vector3(0.5f, 0.5f, 0.5f), RoleType.ChaosRifleman, ItemType.GunCOM18, "CwanStars", "Pet", true);
-                            //Extensions.SpawnDummyModel(ply, ply.Position, ply.GameObject.transform.localRotation, RoleType.Scp096, 0.5f, 0.5f, 0.5f, out int dummyIndex);
-                            response = "<color=green>Test pet!</color>";
-                            return true;
+                            if(Pet.SpawnPet(ply, arguments.At(2), PetType.Amogus, out var pet))
+                            {
+                                response = "<color=green>Zrespiono Peta!</color>";
+                                return true;
+                            }
                         }
                     }
                     else

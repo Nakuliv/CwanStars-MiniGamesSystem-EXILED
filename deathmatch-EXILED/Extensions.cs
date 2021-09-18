@@ -3,6 +3,7 @@ using System.Linq;
 using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using MiniGamesSystem.Hats;
+using MiniGamesSystem.Pets;
 using Mirror;
 using RemoteAdmin;
 using UnityEngine;
@@ -46,7 +47,9 @@ namespace MiniGamesSystem
             if (dummyIndex != 1)
                 dummyIndex = objs.Count();
         }
-
+        public static void RemoveDisplayInfo(this Player ply, PlayerInfoArea playerInfo) => ply.ReferenceHub.nicknameSync.Network_playerInfoToShow &= ~playerInfo;
+        public static void AddDisplayInfo(this Player ply, PlayerInfoArea playerInfo) => ply.ReferenceHub.nicknameSync.Network_playerInfoToShow |= playerInfo;
+        public static PetOwnerScript GetPetOwnerScript(this Player player) => player.GameObject.GetComponent<PetOwnerScript>();
         public static void SetRank(this Player player, string rank, string color = "default")
         {
             player.ReferenceHub.serverRoles.Network_myText = rank;
@@ -150,6 +153,5 @@ namespace MiniGamesSystem
             playerComponent.item.itemOffset = posOffset;
             playerComponent.item.rot = rotOffset;
         }
-
     }
 }
