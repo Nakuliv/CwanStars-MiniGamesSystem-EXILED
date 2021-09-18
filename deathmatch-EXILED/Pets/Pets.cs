@@ -41,19 +41,13 @@ namespace MiniGamesSystem.Pets
             {
                 case PetType.Amogus:
                     Player.ClassManager().CurClass = RoleType.ClassD;
-                    if (Handler.pInfoDict[player.UserId].custompetSize != new Vector3(1, 1, 1))
-                    {
-                        Player.Scale = new Vector3(1f, 0.5f, 1f);
-                    }
+                    Player.Scale = new Vector3(1f, 0.5f, 1f);
                     Player.RankName = "Pet";
                     Player.RankColor = "yellow";
                     break;
                 case PetType.Doggo:
                     Player.ClassManager().CurClass = RoleType.Scp93953;
-                    if (Handler.pInfoDict[player.UserId].custompetSize != new Vector3(1, 1, 1))
-                    {
-                        Player.Scale = new Vector3(0.5f, 0.5f, 0.5f);
-                    }
+                    Player.Scale = new Vector3(0.5f, 0.5f, 0.5f);
                     Player.RankName = "Pet";
                     Player.RankColor = "yellow";
                     break;
