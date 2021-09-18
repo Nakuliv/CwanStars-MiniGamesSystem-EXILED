@@ -113,6 +113,34 @@ namespace MiniGamesSystem.Commands
                             return false;
                         }
                     }
+                    else if (arguments.At(1) == "Custom")
+                    {
+                        if (Handler.pInfoDict[ply.UserId].Coins > 19999)
+                        {
+
+                            if (Handler.pInfoDict[ply.UserId].ListaPetow.Contains(PetType.Custom))
+                            {
+                                response = "<color=red>Masz już tego peta!</color>";
+                                return false;
+                            }
+                            else
+                            {
+                                Handler.pInfoDict[ply.UserId].Coins = (Handler.pInfoDict[ply.UserId].Coins - 20000);
+                                Handler.pInfoDict[ply.UserId].ListaPetow.Add(PetType.Custom);
+                                foreach (KeyValuePair<string, PlayerInfo> info in Handler.pInfoDict)
+                                {
+                                    File.WriteAllText(Path.Combine(MiniGamesSystem.DataPath, $"{info.Key}.json"), JsonConvert.SerializeObject(info.Value, Formatting.Indented));
+                                }
+                                response = "<color=green>Kupiłeś Custom Peta, wpisz .custompet aby go skonfigurować!</color>";
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            response = "<color=red>Nie stać cię na to!</color>";
+                            return false;
+                        }
+                    }
                     else if (arguments.At(1) == "Vip")
                     {
                         if (Handler.pInfoDict[ply.UserId].Coins > 9999)

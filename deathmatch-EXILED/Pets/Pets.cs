@@ -41,20 +41,29 @@ namespace MiniGamesSystem.Pets
             {
                 case PetType.Amogus:
                     Player.ClassManager().CurClass = RoleType.ClassD;
-                    Player.Scale = new Vector3(1f, 0.5f, 1f);
+                    if (Handler.pInfoDict[player.UserId].custompetSize != new Vector3(1, 1, 1))
+                    {
+                        Player.Scale = new Vector3(1f, 0.5f, 1f);
+                    }
                     Player.RankName = "Pet";
                     Player.RankColor = "yellow";
                     break;
                 case PetType.Doggo:
                     Player.ClassManager().CurClass = RoleType.Scp93953;
-                    Player.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+                    if (Handler.pInfoDict[player.UserId].custompetSize != new Vector3(1, 1, 1))
+                    {
+                        Player.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+                    }
                     Player.RankName = "Pet";
                     Player.RankColor = "yellow";
                     break;
                 case PetType.Custom:
                     Player.ClassManager().CurClass = Handler.pInfoDict[player.UserId].custompetClass;
-                    Player.Scale = Handler.pInfoDict[player.UserId].custompetSize;
-                    Player.CurrentItem = new Exiled.API.Features.Items.Item(Handler.pInfoDict[player.UserId].custompetItem);
+                    if (Handler.pInfoDict[player.UserId].custompetSize != new Vector3(1, 1, 1))
+                    {
+                        Player.Scale = Handler.pInfoDict[player.UserId].custompetSize;
+                    }
+                    //Player.CurrentItem = new Exiled.API.Features.Items.Item(Handler.pInfoDict[player.UserId].custompetItem);
                     Player.RankName = "Custom Pet";
                     Player.RankColor = "yellow";
                     break;

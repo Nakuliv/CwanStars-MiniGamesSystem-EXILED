@@ -9,8 +9,7 @@ using RemoteAdmin;
 
 namespace MiniGamesSystem.Commands
 {
-    [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    [CommandHandler(typeof(GameConsoleCommandHandler))]
+    [CommandHandler(typeof(ClientCommandHandler))]
     public class CustomPet : ParentCommand
     {
         public CustomPet() => LoadGeneratedCommands();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using CommandSystem;
 using Exiled.API.Features;
-using FakePlayers.API;
 using MEC;
 using MiniGamesSystem.Hats;
 using MiniGamesSystem.Pets;
@@ -14,7 +13,6 @@ namespace MiniGamesSystem.Commands
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Ekwipunek : ParentCommand
     {
-        FakePlayer _dummy;
         public Ekwipunek() => LoadGeneratedCommands();
 
         public override string Command { get; } = "ekwipunek";
@@ -28,6 +26,11 @@ namespace MiniGamesSystem.Commands
         public string listaczapek(Player ply)
         {
             return string.Join("\n", Handler.pInfoDict[ply.UserId].ListaCzapek);
+        }
+
+        public string listapetow(Player ply)
+        {
+            return string.Join("\n", Handler.pInfoDict[ply.UserId].ListaPetow);
         }
 
         internal static bool RemoveHat(HatPlayerComponent playerComponent)
@@ -49,6 +52,8 @@ namespace MiniGamesSystem.Commands
                 "\n=================== Ekwipunek ===================\n" +
                 "<color=#EFC01A>Twoje Czapki:</color>\n" +
                 $"{(hasData ? listaczapek(ply) : "[NIE MASZ ŻADNYCH CZAPEK]")}\n" +
+                "<color=#EFC01A>Twoje Pety:</color>\n" +
+                $"{(hasData ? listapetow(ply) : "[NIE MASZ ŻADNYCH PETÓW]")}\n" +
                 "---------------------------\n" +
                 "<color=cyan>Aby wziąć jakąś czapkę wpisz: </color><color=yellow>.eq wez [nazwa czapki]</color>\n" +
                 "<color=cyan>Aby zdjąć czapkę wpisz: </color><color=yellow>.eq odloz</color>";
@@ -157,7 +162,26 @@ namespace MiniGamesSystem.Commands
                     }
                     else
                     {
-                        response = "<color=red>Nie masz takiej czapki w ekwipunku!</color>";
+                        response = "<color=red>Nie masz takiego peta w ekwipunku!</color>";
+                        return false;
+                    }
+                }
+                else if (arguments.At(1) == "Doggo")
+                {
+                    if (Handler.pInfoDict[ply.UserId].ListaPetow.Contains(PetType.Doggo))
+                    {
+                        if (ply.Role != RoleType.None && ply.Role != RoleType.Spectator)
+                        {
+                            if (Pet.SpawnPet(ply, arguments.At(2), PetType.Doggo, out var pet))
+                            {
+                                response = "<color=green>Zrespiono Peta!</color>";
+                                return true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        response = "<color=red>Nie masz takiego peta w ekwipunku!</color>";
                         return false;
                     }
                 }
