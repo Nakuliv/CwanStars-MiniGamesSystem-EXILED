@@ -5,8 +5,9 @@ namespace MiniGamesSystem
 {
     public class Config : IConfig
     {
-        [Description("Use hints instead of broadcasts for text stuff:")]
-        public bool UseHints { get; set; } = true;
+        [Description("Display the list of commands?")]
+        public bool DisplayCommandList { get; set; } = true;
+        public string CommandListTop { get; set; } = "Dostępne komendy";
 
         [Description("Determines the position of the Hint on the users screen (32 = Top, 0 = Middle, -15 = Below)")]
         public int HintVertPos { get; set; } = 25;

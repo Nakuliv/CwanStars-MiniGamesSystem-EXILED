@@ -30,7 +30,6 @@ namespace MiniGamesSystem
         public static Dictionary<string, PlayerInfo> pInfoDict = new Dictionary<string, PlayerInfo>();
         private List<DoorType> EscapePrimary = new List<DoorType>() { DoorType.EscapePrimary };
         private List<DoorType> SurfaceGate = new List<DoorType>() { DoorType.SurfaceGate };
-        public static HashSet<string> props = new HashSet<string>();
         [YamlIgnore]
         public GameObject orginalPrefab;
 
@@ -90,7 +89,7 @@ namespace MiniGamesSystem
 
             var Unit2 = new SyncUnit();
             Unit2.UnitName =
-                "<color=#EFC01A>== Dostępne komendy ==</color>";
+                $"<color=#EFC01A>== {MiniGamesSystem.Instance.Config.CommandListTop} ==</color>";
             Unit2.SpawnableTeam = (byte)SpawnableTeamType.NineTailedFox;
 
             var Unit3 = new SyncUnit();
@@ -122,13 +121,17 @@ namespace MiniGamesSystem
             {
                 RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit);
                 RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit1);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Space);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit2);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit3);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit4);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit5);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit6);
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit7);
+
+                if (MiniGamesSystem.Instance.Config.DisplayCommandList)
+                {
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Space);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit2);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit3);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit4);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit5);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit6);
+                    RespawnManager.Singleton.NamingManager.AllUnitNames.Add(Unit7);
+                }
             });
             foreach (CoroutineHandle coroutine in coroutines)
             {
@@ -201,7 +204,6 @@ namespace MiniGamesSystem
 
         public void OnRS()
         {
-            GameCore.Console.singleton.TypeCommand(@"/vcm stop /home/container/.config/EXILED/waiting3.f32le");
             foreach (Player ply in Player.List)
             {
                 ply.IsGodModeEnabled = false;
@@ -409,61 +411,12 @@ namespace MiniGamesSystem
             }
         }
 
-        public void OnShooting(ShootingEventArgs ev)
-        {
-            foreach (Player ply in Player.List)
-            {
-                if (props.Contains(ply.UserId))
-                {
-                    if (ev.ShotPosition == ply.Position)
-                    {
-                        ply.Kill(DamageTypes.Com18);
-                    }
-                }
-            }
-        }
-
         public void OnPickingUp(PickingUpItemEventArgs ev)
         {
             if (ev.Pickup.Base.gameObject.TryGetComponent<HatItemComponent>(out var hat))
             {
                 ev.Player.ShowHint("<color=red>Nie możesz podnieść czapki!</color>");
                 ev.IsAllowed = false;
-            }
-            if (props.Contains(ev.Player.UserId))
-            {
-                Item item = new Item(ev.Pickup.Type);
-                
-                item.Spawn(ev.Pickup.Position, default);
-
-                ev.Player.IsInvisible = true;
-                ev.IsAllowed = false;
-
-                if (ev.Pickup.Type == ItemType.SCP018 || ev.Pickup.Type == ItemType.Medkit)
-                {
-                    ev.Player.Scale = new Vector3(0.01f, 0.01f, 0.01f);
-
-                }
-                else if (ev.Pickup.Type == ItemType.GunE11SR)
-                {
-                    ev.Player.Scale = new Vector3(0.1f, 0.1f, 0.1f);
-                }
-                Timing.RunCoroutine(TpProps(ev.Pickup));
-            }
-        }
-
-        public IEnumerator<float> TpProps(Pickup type)
-        {
-            while (true)
-            {
-                foreach (Player ply in Player.List)
-                {
-                    if (props.Contains(ply.UserId))
-                    {
-                        type.Position = ply.Position;
-                    }
-                }
-                yield return Timing.WaitForSeconds(0f);
             }
         }
 
@@ -594,8 +547,7 @@ namespace MiniGamesSystem
 
                 foreach (Player ply in Player.List)
                 {
-                    if (MiniGamesSystem.Instance.Config.UseHints) ply.ShowHint(message.ToString(), 1f);
-                    else ply.Broadcast(1, message.ToString());
+                    ply.Broadcast(1, message.ToString());
                 }
 
                 yield return Timing.WaitForSeconds(1f);

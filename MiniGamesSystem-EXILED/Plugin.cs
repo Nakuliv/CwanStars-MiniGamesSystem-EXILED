@@ -39,7 +39,6 @@ namespace MiniGamesSystem
             ServerEv.RoundStarted += handler.OnRS;
             PlayerEv.PickingUpItem += handler.OnPickingUp;
             ServerEv.RestartingRound += handler.OnRoundRestart;
-            PlayerEv.Shooting += handler.OnShooting;
             ServerEv.EndingRound += handler.OnRndEnd;
             ServerEv.RespawningTeam += handler.OnRespawning;
             WarheadEv.Stopping += handler.OnWarheadCancel;
@@ -56,7 +55,6 @@ namespace MiniGamesSystem
             ServerEv.RoundStarted -= handler.OnRS;
             PlayerEv.PickingUpItem -= handler.OnPickingUp;
             ServerEv.RestartingRound -= handler.OnRoundRestart;
-            PlayerEv.Shooting -= handler.OnShooting;
             ServerEv.EndingRound -= handler.OnRndEnd;
             ServerEv.RespawningTeam -= handler.OnRespawning;
             WarheadEv.Stopping -= handler.OnWarheadCancel;

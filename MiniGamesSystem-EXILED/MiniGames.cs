@@ -324,34 +324,7 @@ namespace MiniGamesSystem
             }
         }
 
-        //PropHunt
-
-        public static void PropHunt()
-        {
-            List<Player> players = Player.List.ToList();
-            for (int i = 0; i < players.Count / 2; i++)
-            {
-                players[i].Role = RoleType.ClassD;
-                Handler.props.Add(players[i].UserId);
-                players.Remove(players[i]);
-            }
-
-            foreach (Player player in players)
-            {
-                player.Role = RoleType.NtfCaptain;
-                player.ClearInventory();
-
-                Timing.CallDelayed(0.1f, () =>
-                {
-                    player.AddItem(ItemType.GunCOM18);
-                    player.Ammo[ItemType.Ammo9x19] = 200;
-                    player.Ammo[ItemType.Ammo44cal] = 200;
-                    player.Ammo[ItemType.Ammo12gauge] = 200;
-                    player.Position = Map.Rooms.First(x => x.Type == RoomType.LczCafe).Position;
-                });
-            }
-        }
-        //PeanutRun
+        //WarheadRun
         public static void WarheadRunn()
         {
             Warhead.Start();
