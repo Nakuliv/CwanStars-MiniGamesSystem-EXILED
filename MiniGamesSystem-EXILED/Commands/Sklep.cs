@@ -33,18 +33,18 @@ namespace MiniGamesSystem.Commands
                 response =
                     "\n=================== Sklep ===================\n" +
                     $"twoje Coiny: {(hasData ? Handler.pInfoDict[ply.UserId].Coins.ToString() : "[BRAK DANYCH]")}\n" +
-                    "---------------------------\n" +
-                    "<color=#EFC01A>Czapki:</color>\n" +
-                    "Coin - <color=yellow>50</color> coinów\n" +
-                    "Piłka - <color=yellow>100</color> Coinów\n" +
-                    "Cola - <color=yellow>150</color> Coinów\n" +
-                    "Beret - <color=yellow>250</color> Coinów\n" +
-                    "Ser - <color=yellow>1000</color> Coinów\n" +
-                    "---------------------------\n" +
-                    "<color=#EFC01A>Pety (BETA):</color>\n" +
-                    "Amogus - <color=yellow>500</color> coinów\n" +
-                    "Doggo - <color=yellow>1000</color> coinów\n" +
-                    "(<color=#EFC01A>NOWOŚĆ!</color>)Custom - <color=yellow>20000</color> coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "---------------------------\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "<color=#EFC01A>Czapki:</color>\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "Coin - <color=yellow>50</color> coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "Piłka - <color=yellow>100</color> Coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "Cola - <color=yellow>150</color> Coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "Beret - <color=yellow>250</color> Coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnableHats ? "Ser - <color=yellow>1000</color> Coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnablePets ? "---------------------------\n" +
+                    MiniGamesSystem.Instance.Config.EnablePets ? "<color=#EFC01A>Pety (BETA):</color>\n" +
+                    MiniGamesSystem.Instance.Config.EnablePets ? "Amogus - <color=yellow>500</color> coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnablePets ? "Doggo - <color=yellow>1000</color> coinów\n" +
+                    MiniGamesSystem.Instance.Config.EnablePets ? "(<color=#EFC01A>NOWOŚĆ!</color>)Custom - <color=yellow>20000</color> coinów\n" +
                     "---------------------------\n" +
                     "<color=#EFC01A>Rangi:</color>\n" +
                     "VIP na miesiąc - <color=yellow>10000</color> Coinów\n" +
@@ -54,9 +54,11 @@ namespace MiniGamesSystem.Commands
                 return true;
             }
             else if (arguments.Count > 0)
-            {
+             {
                 if (arguments.At(0) == "kup")
                 {
+if(MiniGamesSystem.Instance.Config.EnablePets)
+{
                     if (arguments.At(1) == "Amogus")
                     {
                         if (Handler.pInfoDict[ply.UserId].Coins > 449)
@@ -141,6 +143,7 @@ namespace MiniGamesSystem.Commands
                             return false;
                         }
                     }
+}
                     else if (arguments.At(1) == "Vip")
                     {
                         if (Handler.pInfoDict[ply.UserId].Coins > 9999)
