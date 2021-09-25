@@ -547,7 +547,7 @@ namespace MiniGamesSystem
 
                 foreach (Player ply in Player.List)
                 {
-                    ply.Broadcast(1, message.ToString());
+                    ply.ShowHint(message.ToString(), 1f);
                 }
 
                 yield return Timing.WaitForSeconds(1f);

@@ -5,6 +5,8 @@ namespace MiniGamesSystem
 {
     public class Config : IConfig
     {
+        public bool EnablePets { get; set; } = true;
+        public bool EnableHats { get; set; } = true;
         [Description("Display the list of commands?")]
         public bool DisplayCommandList { get; set; } = true;
         public string CommandListTop { get; set; } = "Dostępne komendy";
